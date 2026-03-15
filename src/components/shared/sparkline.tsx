@@ -1,0 +1,40 @@
+'use client';
+
+import { AreaChart, Area, ResponsiveContainer } from 'recharts';
+
+interface SparklineProps {
+  data: number[];
+  color?: string;
+  isUp?: boolean;
+}
+
+export function Sparkline({ data, color, isUp }: SparklineProps) {
+  const chartData = data.map((value, index) => ({ value, index }));
+  const defaultColor = isUp ? '#da545b' : '#2ca66c';
+  const strokeColor = color || defaultColor;
+  const id = `spark-${Math.random().toString(36).slice(2, 8)}`;
+
+  return (
+    <div className="w-20 h-7">
+      <ResponsiveContainer width="100%" height="100%">
+        <AreaChart data={chartData}>
+          <defs>
+            <linearGradient id={id} x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor={strokeColor} stopOpacity={0.3} />
+              <stop offset="100%" stopColor={strokeColor} stopOpacity={0} />
+            </linearGradient>
+          </defs>
+          <Area
+            type="monotone"
+            dataKey="value"
+            stroke={strokeColor}
+            strokeWidth={1.5}
+            fill={`url(#${id})`}
+            dot={false}
+            animationDuration={800}
+          />
+        </AreaChart>
+      </ResponsiveContainer>
+    </div>
+  );
+}
