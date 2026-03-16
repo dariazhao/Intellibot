@@ -2,6 +2,7 @@
 
 import { motion } from 'motion/react';
 import { AreaChart, Area, ResponsiveContainer } from 'recharts';
+import { AnimatedCounter } from '@/components/shared/animated-counter';
 import type { Account, Competitor } from '@/lib/schemas';
 
 interface MetricWidgetsProps {
@@ -24,7 +25,7 @@ export function MetricWidgets({ accounts, competitors }: MetricWidgetsProps) {
   const widgets = [
     {
       label: 'Avg Health Score',
-      value: avgHealth.toString(),
+      numericValue: avgHealth, prefix: '', suffix: '', decimals: 0,
       delta: '+3.2%',
       deltaUp: true,
       color: '#2ca66c',
@@ -33,7 +34,7 @@ export function MetricWidgets({ accounts, competitors }: MetricWidgetsProps) {
     },
     {
       label: 'Total ARR',
-      value: `$${(totalARR / 1_000_000).toFixed(1)}M`,
+      numericValue: totalARR / 1_000_000, prefix: '$', suffix: 'M', decimals: 1,
       delta: '+8.1%',
       deltaUp: true,
       color: '#632CA6',
@@ -42,7 +43,7 @@ export function MetricWidgets({ accounts, competitors }: MetricWidgetsProps) {
     },
     {
       label: 'Active Signals',
-      value: '14',
+      numericValue: 14, prefix: '', suffix: '', decimals: 0,
       delta: '+2',
       deltaUp: true,
       color: '#1a8dff',
@@ -51,7 +52,7 @@ export function MetricWidgets({ accounts, competitors }: MetricWidgetsProps) {
     },
     {
       label: 'High Threats',
-      value: highThreats.toString(),
+      numericValue: highThreats, prefix: '', suffix: '', decimals: 0,
       delta: highThreats > 1 ? 'Active' : 'Low',
       deltaUp: false,
       color: '#da545b',
@@ -60,7 +61,7 @@ export function MetricWidgets({ accounts, competitors }: MetricWidgetsProps) {
     },
     {
       label: 'At-Risk Accounts',
-      value: atRiskAccounts.toString(),
+      numericValue: atRiskAccounts, prefix: '', suffix: '', decimals: 0,
       delta: atRiskAccounts > 0 ? 'Needs attention' : 'Clear',
       deltaUp: false,
       color: '#e5a00d',
@@ -69,7 +70,7 @@ export function MetricWidgets({ accounts, competitors }: MetricWidgetsProps) {
     },
     {
       label: 'Battlecards Generated',
-      value: '47',
+      numericValue: 47, prefix: '', suffix: '', decimals: 0,
       delta: '+12 this week',
       deltaUp: true,
       color: '#17b8be',
@@ -93,7 +94,9 @@ export function MetricWidgets({ accounts, competitors }: MetricWidgetsProps) {
               {w.label}
             </div>
             <div className="flex items-end gap-2 mt-1">
-              <span className="text-2xl font-bold leading-none">{w.value}</span>
+              <span className="text-2xl font-bold leading-none">
+                <AnimatedCounter target={w.numericValue} prefix={w.prefix} suffix={w.suffix} decimals={w.decimals} />
+              </span>
               <span
                 className={`text-[11px] font-medium leading-none mb-0.5 ${
                   w.deltaUp ? 'text-[#2ca66c]' : 'text-muted-foreground'

@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
-import { Inter, JetBrains_Mono } from "next/font/google";
+import { Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import { AppShell } from "@/components/layout/app-shell";
 import { ThemeProvider } from "@/components/theme-provider";
+import { ToastProvider } from "@/components/shared/toast";
 import "./globals.css";
 
-const inter = Inter({
+const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
   display: "swap",
+  variable: "--font-sans",
 });
 
 const jetbrainsMono = JetBrains_Mono({
@@ -37,10 +39,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`dark ${inter.className} ${jetbrainsMono.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`theme-light ${spaceGrotesk.className} ${spaceGrotesk.variable} ${jetbrainsMono.variable}`} suppressHydrationWarning>
       <body className="antialiased">
         <ThemeProvider>
-          <AppShell>{children}</AppShell>
+          <ToastProvider>
+            <AppShell>{children}</AppShell>
+          </ToastProvider>
         </ThemeProvider>
       </body>
     </html>

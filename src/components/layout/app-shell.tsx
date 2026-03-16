@@ -4,10 +4,14 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { GlobalSearch } from './global-search';
+import { NotificationBell } from './notification-bell';
 
 const NAV_ITEMS = [
   { href: '/', label: 'Dashboard', icon: 'home' },
   { href: '/competitors', label: 'Competitors', icon: 'sword' },
+  { href: '/compare', label: 'Compare', icon: 'compare' },
+  { href: '/battlecards', label: 'Battlecards', icon: 'bolt' },
+  { href: '/events', label: 'Event Stream', icon: 'stream' },
   { href: '/settings', label: 'Settings', icon: 'gear' },
 ] as const;
 
@@ -29,6 +33,28 @@ function NavIcon({ icon, size = 20 }: { icon: string; size?: number }) {
           <circle cx="9" cy="7" r="4" />
           <path d="M22 21v-2a4 4 0 00-3-3.87" />
           <path d="M16 3.13a4 4 0 010 7.75" />
+        </svg>
+      );
+    case 'compare':
+      return (
+        <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="3" y="3" width="8" height="18" rx="1" />
+          <rect x="13" y="3" width="8" height="18" rx="1" />
+          <path d="M7 8h0" /><path d="M7 12h0" /><path d="M7 16h0" />
+          <path d="M17 8h0" /><path d="M17 12h0" /><path d="M17 16h0" />
+        </svg>
+      );
+    case 'bolt':
+      return (
+        <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+          <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+        </svg>
+      );
+    case 'stream':
+      return (
+        <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M2 12h4" /><path d="M18 12h4" />
+          <path d="M6 8v8" /><path d="M10 5v14" /><path d="M14 7v10" /><path d="M18 10v4" />
         </svg>
       );
     case 'gear':
@@ -53,17 +79,36 @@ function IconNavLink({ href, label, icon }: { href: string; label: string; icon:
       title={label}
       className={`relative flex items-center justify-center w-10 h-10 rounded-md transition-all duration-150 group ${
         isActive
-          ? 'bg-[#632CA6]/20 text-[#a78bfa]'
-          : 'text-[#8c86a5] hover:text-[#cdc8e0] hover:bg-[#2a2548]'
+          ? 'bg-sidebar-accent text-sidebar-accent-foreground'
+          : 'text-sidebar-foreground/60 hover:text-sidebar-foreground hover:bg-sidebar-accent'
       }`}
     >
       {isActive && (
-        <div className="absolute left-0 top-1.5 bottom-1.5 w-[3px] rounded-r bg-[#632CA6]" />
+        <div className="absolute left-0 top-1.5 bottom-1.5 w-[3px] rounded-r bg-sidebar-primary" />
       )}
       <NavIcon icon={icon} />
-      <div className="absolute left-full ml-2 px-2 py-1 rounded bg-[#2a2548] text-xs text-[#e2dff0] whitespace-nowrap opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity z-50 border border-[#3a3460]">
+      <div className="absolute left-full ml-2 px-2 py-1 rounded bg-popover text-xs text-popover-foreground whitespace-nowrap opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity z-50 border border-border shadow-lg">
         {label}
       </div>
+    </Link>
+  );
+}
+
+function MobileNavLink({ href, label, icon }: { href: string; label: string; icon: string }) {
+  const pathname = usePathname();
+  const isActive = href === '/' ? pathname === '/' : pathname.startsWith(href);
+
+  return (
+    <Link
+      href={href}
+      className={`flex flex-col items-center justify-center gap-0.5 py-1 px-1 rounded-md transition-colors ${
+        isActive
+          ? 'text-sidebar-accent-foreground'
+          : 'text-sidebar-foreground/50'
+      }`}
+    >
+      <NavIcon icon={icon} size={18} />
+      <span className="text-[9px] leading-none">{label}</span>
     </Link>
   );
 }
@@ -71,6 +116,9 @@ function IconNavLink({ href, label, icon }: { href: string; label: string; icon:
 const PAGE_TITLES: Record<string, string> = {
   '/': 'Dashboards',
   '/competitors': 'Competitors',
+  '/compare': 'Compare',
+  '/battlecards': 'Battlecards',
+  '/events': 'Event Stream',
   '/settings': 'Settings',
 };
 
@@ -81,8 +129,8 @@ function Breadcrumbs() {
     return (
       <div className="flex items-center gap-2 text-[13px]">
         <span className="font-semibold text-foreground">Competitive Intel Overview</span>
-        <span className="text-muted-foreground">—</span>
-        <span className="text-muted-foreground text-xs">Last 24 hours</span>
+        <span className="text-muted-foreground hidden sm:inline">—</span>
+        <span className="text-muted-foreground text-xs hidden sm:inline">Last 24 hours</span>
       </div>
     );
   }
@@ -115,15 +163,12 @@ function Breadcrumbs() {
 export function AppShell({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex h-screen bg-background">
-      {/* Slim icon sidebar */}
-      <aside className="w-[52px] border-r border-sidebar-border flex flex-col items-center bg-sidebar shrink-0">
+      {/* Slim icon sidebar — hidden on mobile */}
+      <aside className="hidden md:flex w-[52px] border-r border-sidebar-border flex-col items-center bg-sidebar shrink-0">
         {/* Logo */}
         <div className="py-3 border-b border-sidebar-border w-full flex justify-center">
-          <Link href="/" className="flex items-center justify-center w-8 h-8">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-              <path d="M12 2L4 6v6c0 5.55 3.84 10.74 8 12 4.16-1.26 8-6.45 8-12V6l-8-4z" fill="#632CA6" />
-              <path d="M9 12l2 2 4-4" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
+          <Link href="/" className="flex items-center justify-center w-9 h-9">
+            <img src="/llama.png" alt="Intellibot" width={28} height={28} className="rounded-sm" />
           </Link>
         </div>
 
@@ -140,36 +185,37 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         </div>
       </aside>
 
+      {/* Mobile bottom nav */}
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 z-40 border-t border-sidebar-border bg-sidebar flex items-center justify-around px-1 py-1 safe-area-bottom">
+        {NAV_ITEMS.map((item) => (
+          <MobileNavLink key={item.href} href={item.href} label={item.label} icon={item.icon} />
+        ))}
+      </nav>
+
       {/* Main content area */}
       <div className="flex-1 flex flex-col min-w-0">
         {/* Top bar */}
-        <header className="h-11 border-b border-border flex items-center justify-between px-4 bg-[#1e1a36]">
+        <header className="h-11 border-b border-border flex items-center justify-between px-3 md:px-4 bg-card">
           <Breadcrumbs />
-          <div className="flex items-center gap-2">
-            <TimeRangeSelector />
+          <div className="flex items-center gap-1.5 md:gap-2">
+            <div className="hidden sm:flex">
+              <TimeRangeSelector />
+            </div>
             <GlobalSearch />
+            <NotificationBell />
             <BattlecardButton />
           </div>
         </header>
 
         {/* Content */}
-        <main className="flex-1 overflow-y-auto">
+        <main className="flex-1 overflow-y-auto pb-14 md:pb-0">
           {children}
           <footer className="border-t border-border py-5 px-4 text-center">
             <div className="flex justify-center mb-2">
-              <svg width="48" height="48" viewBox="0 0 100 100" fill="none" className="text-muted-foreground/40">
-                <ellipse cx="50" cy="88" rx="22" ry="4" fill="currentColor" opacity="0.3" />
-                <path d="M30 75 L30 55 Q30 45 35 40 L35 25 Q35 20 38 20 L38 30 Q40 35 42 35 L42 30 Q42 22 45 18 Q48 15 50 15 Q52 15 55 18 Q58 22 58 30 L58 35 Q60 35 62 30 L62 20 Q65 20 65 25 L65 40 Q70 45 70 55 L70 75 Q70 82 60 83 L40 83 Q30 82 30 75Z" fill="currentColor" />
-                <circle cx="42" cy="38" r="3" fill="#231f3e" />
-                <circle cx="58" cy="38" r="3" fill="#231f3e" />
-                <ellipse cx="50" cy="48" rx="4" ry="2.5" fill="#231f3e" opacity="0.5" />
-                <path d="M44 52 Q50 56 56 52" stroke="#231f3e" strokeWidth="1.5" fill="none" strokeLinecap="round" opacity="0.4" />
-                <path d="M25 70 L20 65 M75 70 L80 65" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
-                <path d="M40 83 L38 92 M45 83 L44 92 M55 83 L56 92 M60 83 L62 92" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
-              </svg>
+              <img src="/llama.png" alt="Llama" width={56} height={56} className="opacity-60" />
             </div>
             <div className="text-[11px] text-muted-foreground/60">
-              All data is simulated for illustrative purposes only. Made with &lt;3 by Daria for Snacks &amp; Hacks &mdash; 2026.
+              Made with ❤️ by Daria, 2026.
             </div>
           </footer>
         </main>
@@ -180,7 +226,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
 function TimeRangeSelector() {
   return (
-    <button className="flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground transition-colors px-2 py-1 rounded border border-border hover:border-[#632CA6]/50 bg-secondary/50">
+    <button className="flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground transition-colors px-2 py-1 rounded border border-border hover:border-primary/50 bg-secondary/50">
       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
         <circle cx="12" cy="12" r="10" />
         <polyline points="12 6 12 12 16 14" />
@@ -212,21 +258,21 @@ function BattlecardButton() {
     <>
       <button
         onClick={() => setOpen(true)}
-        className="flex items-center gap-1.5 text-[12px] font-medium text-[#a78bfa] hover:text-white transition-colors px-2 py-1 rounded bg-[#632CA6]/20 hover:bg-[#632CA6]/30 border border-[#632CA6]/30"
+        className="flex items-center gap-1.5 text-[12px] font-medium text-primary hover:text-primary-foreground transition-colors px-2 py-1 rounded bg-primary/15 hover:bg-primary/25 border border-primary/30"
       >
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
         </svg>
-        Battlecard
+        <span className="hidden sm:inline">Battlecard</span>
       </button>
       {open && (
         <div className="fixed inset-0 z-50 flex items-start justify-center pt-[20vh]" onClick={() => setOpen(false)}>
           <div className="absolute inset-0 bg-black/60" />
           <div
-            className="relative w-full max-w-sm bg-[#231f3e] border border-[#3a3460] rounded-lg shadow-2xl overflow-hidden"
+            className="relative w-full max-w-sm mx-4 bg-popover border border-border rounded-lg shadow-2xl overflow-hidden"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="px-3 py-2 border-b border-[#3a3460] text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
+            <div className="px-3 py-2 border-b border-border text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
               Select account
             </div>
             <div className="max-h-64 overflow-y-auto">
@@ -237,7 +283,7 @@ function BattlecardButton() {
                     setOpen(false);
                     router.push(`/account/${a.slug}/battlecard`);
                   }}
-                  className="w-full flex items-center gap-2.5 px-3 py-2.5 text-[13px] hover:bg-[#32294f] transition-colors text-left"
+                  className="w-full flex items-center gap-2.5 px-3 py-2.5 text-[13px] hover:bg-accent transition-colors text-left"
                 >
                   <span>{a.logo}</span>
                   <span className="font-medium">{a.name}</span>

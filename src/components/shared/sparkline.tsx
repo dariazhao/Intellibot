@@ -1,6 +1,6 @@
 'use client';
 
-import { AreaChart, Area, ResponsiveContainer } from 'recharts';
+import { AreaChart, Area, ResponsiveContainer, Tooltip } from 'recharts';
 
 interface SparklineProps {
   data: number[];
@@ -24,6 +24,18 @@ export function Sparkline({ data, color, isUp }: SparklineProps) {
               <stop offset="100%" stopColor={strokeColor} stopOpacity={0} />
             </linearGradient>
           </defs>
+          <Tooltip
+            content={({ active, payload }) => {
+              if (!active || !payload?.[0]) return null;
+              return (
+                <div className="rounded bg-popover border border-border px-2 py-1 text-xs text-popover-foreground shadow-md">
+                  <span className="font-mono font-medium">{payload[0].value}</span>
+                </div>
+              );
+            }}
+            cursor={false}
+            allowEscapeViewBox={{ x: true, y: true }}
+          />
           <Area
             type="monotone"
             dataKey="value"
@@ -31,6 +43,7 @@ export function Sparkline({ data, color, isUp }: SparklineProps) {
             strokeWidth={1.5}
             fill={`url(#${id})`}
             dot={false}
+            activeDot={{ r: 3, strokeWidth: 0, fill: strokeColor }}
             animationDuration={800}
           />
         </AreaChart>

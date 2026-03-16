@@ -11,8 +11,8 @@ export interface ThemeMeta {
 }
 
 export const THEMES: ThemeMeta[] = [
-  { id: 'dark', name: 'Datadog Dark', preview: { bg: '#1a1633', sidebar: '#130f28', accent: '#632CA6', text: '#e2dff0' } },
-  { id: 'light', name: 'Light', preview: { bg: '#f8f8fa', sidebar: '#ffffff', accent: '#632CA6', text: '#1a1633' } },
+  { id: 'light', name: 'Llama Light', preview: { bg: '#eaecf3', sidebar: '#6c5ce7', accent: '#6c5ce7', text: '#1a1633' } },
+  { id: 'dark', name: 'Dark', preview: { bg: '#1a1633', sidebar: '#130f28', accent: '#632CA6', text: '#e2dff0' } },
   { id: 'aubergine', name: 'Aubergine', preview: { bg: '#1a1d21', sidebar: '#3F0E40', accent: '#E01E5A', text: '#d1d2d3' } },
   { id: 'ocean', name: 'Ocean Blue', preview: { bg: '#0f1923', sidebar: '#0a1628', accent: '#2196f3', text: '#ccd6e0' } },
   { id: 'midnight', name: 'Midnight', preview: { bg: '#111111', sidebar: '#0a0a0a', accent: '#6366f1', text: '#e0e0e0' } },
@@ -24,10 +24,10 @@ interface ThemeContextValue {
   setTheme: (theme: ThemeId) => void;
 }
 
-const ThemeContext = createContext<ThemeContextValue>({ theme: 'dark', setTheme: () => {} });
+const ThemeContext = createContext<ThemeContextValue>({ theme: 'light', setTheme: () => {} });
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setThemeState] = useState<ThemeId>('dark');
+  const [theme, setThemeState] = useState<ThemeId>('light');
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {

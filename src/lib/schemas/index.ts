@@ -62,6 +62,7 @@ export const ActivitySchema = z.object({
     "salesforce_meeting",
     "salesforce_note",
     "competitor_alert",
+    "competitor_news",
   ]),
   title: z.string(),
   description: z.string(),

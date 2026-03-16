@@ -6,6 +6,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { Button } from '@/components/ui/button';
 import { StreamingText } from '@/components/shared/streaming-text';
 import { SlideShimmer } from '@/components/shared/loading-shimmer';
+import { useToast } from '@/components/shared/toast';
 
 interface SlideViewerProps {
   streamedText: string;
@@ -40,6 +41,7 @@ function parseSlides(text: string): ParsedSlide[] {
 export function SlideViewer({ streamedText, isStreaming, onRegenerate, slideCount }: SlideViewerProps) {
   const slides = useMemo(() => parseSlides(streamedText), [streamedText]);
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
+  const { addToast } = useToast();
 
   const handleCopyAll = async () => {
     await navigator.clipboard.writeText(streamedText);
@@ -85,14 +87,19 @@ export function SlideViewer({ streamedText, isStreaming, onRegenerate, slideCoun
           <Button variant="outline" size="sm" onClick={handleCopyAll}>
             {copiedIndex === -1 ? 'Copied' : 'Copy All'}
           </Button>
-          <Button variant="outline" size="sm" onClick={() => alert('PDF download would trigger here')}>
+          <Button variant="outline" size="sm" onClick={() => addToast('PDF download started', { variant: 'success' })}>
             Download PDF
           </Button>
-          <Button variant="outline" size="sm" onClick={() => alert('Share link copied!')}>
-            Share Link
+          <Button variant="outline" size="sm" onClick={() => addToast('Exporting to Google Slides...', { variant: 'success' })}>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="mr-1.5"><rect x="2" y="3" width="20" height="18" rx="2" /><path d="M8 12h8" /><path d="M8 16h5" /></svg>
+            Export to Google Slides
           </Button>
-          <Button variant="outline" size="sm" onClick={() => alert('Opening in Slides...')}>
-            Open in Slides
+          <Button variant="outline" size="sm" onClick={() => addToast('Exporting to PowerPoint...', { variant: 'success' })}>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="mr-1.5"><rect x="2" y="3" width="20" height="18" rx="2" /><path d="M10 9h4a2 2 0 010 4h-4V9z" /></svg>
+            Export to PowerPoint
+          </Button>
+          <Button variant="outline" size="sm" onClick={() => addToast('Share link copied to clipboard', { variant: 'success' })}>
+            Share Link
           </Button>
         </motion.div>
       )}

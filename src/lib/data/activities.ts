@@ -10,7 +10,7 @@ export const activities: Activity[] = [
     description:
       "Reviewed current usage metrics with VP of Data Engineering. Platform adoption up 22% QoQ. Discussed expanding ML model training workloads to production. Meridian wants to consolidate from 3 analytics vendors down to 1 by end of year.",
     date: "2026-03-10",
-    metadata: { duration: "47 min", attendees: "4", outcome: "positive" },
+    metadata: { duration: "47 min", attendees: "4", outcome: "positive", entity: "customer" },
   },
   {
     id: "act-002",
@@ -20,7 +20,7 @@ export const activities: Activity[] = [
     description:
       "Hosted dinner with CFO Patricia Langley and CTO Dev Mehta. Discussed their board-level mandate to reduce total cost of data infrastructure by 15% while improving AI capabilities. Strong alignment with our consolidation narrative.",
     date: "2026-03-04",
-    metadata: { location: "NYC", type: "executive_dinner" },
+    metadata: { location: "NYC", type: "executive_dinner", entity: "customer" },
   },
   {
     id: "act-003",
@@ -94,7 +94,7 @@ export const activities: Activity[] = [
     description:
       "Deep-dive call with TitanForge's IoT and Manufacturing Excellence teams. They want to deploy predictive maintenance models across 14 factory sites. Current POC on 2 sites showing 23% reduction in unplanned downtime. Budget approved for full rollout.",
     date: "2026-03-12",
-    metadata: { duration: "55 min", attendees: "6", outcome: "very_positive" },
+    metadata: { duration: "55 min", attendees: "6", outcome: "very_positive", entity: "customer" },
   },
   {
     id: "act-010",
@@ -136,7 +136,7 @@ export const activities: Activity[] = [
     description:
       "First substantive call with NovaBright's Head of Digital. They are drowning in customer data across 200+ stores but lack unified analytics. Currently using spreadsheets and basic Clearview dashboards. No ML capabilities today.",
     date: "2026-03-07",
-    metadata: { duration: "38 min", attendees: "3", outcome: "neutral" },
+    metadata: { duration: "38 min", attendees: "3", outcome: "neutral", entity: "prospect" },
   },
   {
     id: "act-014",
@@ -156,7 +156,7 @@ export const activities: Activity[] = [
     description:
       "Delivered product demo showcasing real-time customer segmentation using NovaBright's anonymized sample data. Head of Digital and VP of Marketing attended. Strong interest but budget concerns raised — fiscal year starts in January.",
     date: "2026-03-13",
-    metadata: { attendees: "4", demo_score: "7/10" },
+    metadata: { attendees: "4", demo_score: "7/10", entity: "prospect" },
   },
 
   // ── Pinnacle Energy Corp (acc-005) ──
@@ -242,7 +242,7 @@ export const activities: Activity[] = [
     description:
       "Connected with VP of Product Sarah Lin about their content recommendation challenges. They currently use a basic collaborative filtering model that is underperforming. Interested in our GenAI-powered recommendation engine but skeptical about cost.",
     date: "2026-03-11",
-    metadata: { duration: "22 min", attendees: "2", outcome: "lukewarm" },
+    metadata: { duration: "22 min", attendees: "2", outcome: "lukewarm", entity: "prospect" },
   },
   {
     id: "act-024",
@@ -263,6 +263,78 @@ export const activities: Activity[] = [
       "VP of Product Sarah Lin and CTO Alex Petrov attended the GenAI for Media webinar. Both stayed for the full 60 minutes and submitted questions during Q&A about content personalization at scale.",
     date: "2026-02-05",
     metadata: { attendees: "2", campaign: "media_genai_webinar" },
+  },
+
+  // ── Competitor News / External Intel ──
+  {
+    id: "act-031",
+    accountId: "acc-001",
+    type: "competitor_news",
+    title: "Synthetica AI raises $180M Series C to expand enterprise AI platform",
+    description:
+      "Synthetica AI announced a $180M Series C led by Sequoia Capital, valuing the company at $2.1B. Funds will be used to expand their enterprise AI platform and double their sales team.",
+    date: "2026-03-14",
+    metadata: { newsSource: "TechCrunch", entity: "competitor" },
+  },
+  {
+    id: "act-032",
+    accountId: "acc-002",
+    type: "competitor_news",
+    title: "NeuralEdge launches healthcare-specific LLM for clinical workflows",
+    description:
+      "NeuralEdge announced MedLLM-3, a HIPAA-compliant large language model fine-tuned on clinical data. Targets automated clinical note summarization and diagnostic assistance.",
+    date: "2026-03-13",
+    metadata: { newsSource: "NeuralEdge Newsroom", entity: "competitor" },
+  },
+  {
+    id: "act-033",
+    accountId: "acc-003",
+    type: "competitor_news",
+    title: "Lakehouse.io partners with Siemens for industrial IoT analytics",
+    description:
+      "Lakehouse.io announced a strategic partnership with Siemens to integrate their data lakehouse with Siemens MindSphere for manufacturing analytics. Could impact TitanForge evaluation.",
+    date: "2026-03-11",
+    metadata: { newsSource: "Google News", entity: "competitor" },
+  },
+  {
+    id: "act-034",
+    accountId: "acc-006",
+    type: "competitor_news",
+    title: "Synthetica AI launches pre-built Supply Chain AI models",
+    description:
+      "Synthetica AI released a suite of pre-built models for demand forecasting, route optimization, and warehouse management. Free 90-day trial for enterprise customers.",
+    date: "2026-03-09",
+    metadata: { newsSource: "Synthetica AI Blog", entity: "competitor" },
+  },
+  {
+    id: "act-035",
+    accountId: "acc-005",
+    type: "competitor_news",
+    title: "DataVault Enterprise wins FedRAMP authorization for data governance suite",
+    description:
+      "DataVault Enterprise announced FedRAMP High authorization for their data governance platform. This strengthens their position in regulated industries including energy and financial services.",
+    date: "2026-03-06",
+    metadata: { newsSource: "DataVault Newsroom", entity: "competitor" },
+  },
+  {
+    id: "act-036",
+    accountId: "acc-007",
+    type: "competitor_news",
+    title: "OpenML Studio open-sources their recommendation engine framework",
+    description:
+      "OpenML Studio released their content recommendation framework as open source on GitHub. Already has 2.3K stars. Could attract Stellar Media's engineering team.",
+    date: "2026-03-04",
+    metadata: { newsSource: "TechCrunch", entity: "competitor" },
+  },
+  {
+    id: "act-037",
+    accountId: "acc-004",
+    type: "competitor_news",
+    title: "ClearView Analytics acquired by Oracle for $450M",
+    description:
+      "Oracle announced the acquisition of ClearView Analytics for $450M. NovaBright currently uses ClearView — this acquisition may accelerate their desire to switch vendors.",
+    date: "2026-02-28",
+    metadata: { newsSource: "Google News", entity: "competitor" },
   },
 
   // ── Cross-account and additional activities ──
