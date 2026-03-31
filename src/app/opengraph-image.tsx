@@ -236,30 +236,29 @@ export default async function OGImage() {
           />
 
           {/* Right: Description + Author */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '14px', flex: 1 }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', flex: 1 }}>
             <div
               style={{
-                fontSize: '22px',
+                fontSize: '28px',
                 fontWeight: 500,
                 color: '#4a4565',
-                lineHeight: 1.35,
+                lineHeight: 1.3,
                 display: 'flex',
               }}
             >
               Real-time comp intel for AI-native teams.
             </div>
 
-            {/* Signed by */}
+            {/* Signed by — single line */}
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
               <img
                 src={headshotBase64}
-                width={32}
-                height={32}
+                width={28}
+                height={28}
                 style={{ borderRadius: '50%', border: '2px solid rgba(108,92,231,0.2)' }}
               />
-              <div style={{ display: 'flex', flexDirection: 'column' }}>
-                <div style={{ fontSize: '13px', fontWeight: 600, color: '#1e1b3a', display: 'flex' }}>Daria Zhao</div>
-                <div style={{ fontSize: '11px', color: '#9b95b3', display: 'flex' }}>SF PMM Community</div>
+              <div style={{ fontSize: '14px', fontWeight: 500, color: '#6b6589', display: 'flex' }}>
+                Daria Zhao · SF PMM Community
               </div>
             </div>
           </div>
