@@ -1,10 +1,11 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { GlobalSearch } from './global-search';
 import { NotificationBell } from './notification-bell';
+import { WelcomeTour } from '@/components/onboarding/welcome-tour';
 
 const NAV_ITEMS = [
   { href: '/', label: 'Dashboard', icon: 'home' },
@@ -161,8 +162,14 @@ function Breadcrumbs() {
 }
 
 export function AppShell({ children }: { children: React.ReactNode }) {
+  const [tourOpen, setTourOpen] = useState(false);
+
+  const openTour = useCallback(() => setTourOpen(true), []);
+  const closeTour = useCallback(() => setTourOpen(false), []);
+
   return (
     <div className="flex h-screen bg-background">
+      <WelcomeTour forceOpen={tourOpen} onClose={closeTour} />
       {/* Slim icon sidebar — hidden on mobile */}
       <aside className="hidden md:flex w-[52px] border-r border-sidebar-border flex-col items-center bg-sidebar shrink-0">
         {/* Logo */}
@@ -203,6 +210,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             </div>
             <GlobalSearch />
             <NotificationBell />
+            <RetakeTourButton onClick={openTour} />
             <BattlecardButton />
           </div>
         </header>
@@ -215,12 +223,38 @@ export function AppShell({ children }: { children: React.ReactNode }) {
               <img src="/llama.png" alt="Llama" width={56} height={56} className="opacity-60" />
             </div>
             <div className="text-[11px] text-muted-foreground/60">
-              Made with ❤️ by Daria, 2026.
+              Made with ♥️ by Daria Zhao for the SF PMM community. Sign up for future events{' '}
+              <a
+                href="https://luma.com/calendar/cal-y7Q8MCsPwKeiJ8r?period=past"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline hover:text-foreground transition-colors"
+              >
+                here
+              </a>
+              . © 2026. All rights reserved.
             </div>
           </footer>
         </main>
       </div>
     </div>
+  );
+}
+
+function RetakeTourButton({ onClick }: { onClick: () => void }) {
+  return (
+    <button
+      onClick={onClick}
+      title="Retake Welcome Tour"
+      className="flex items-center gap-1.5 text-[12px] text-muted-foreground hover:text-foreground transition-colors px-2 py-1 rounded hover:bg-accent border border-transparent hover:border-border"
+    >
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="12" cy="12" r="10" />
+        <path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3" />
+        <line x1="12" y1="17" x2="12.01" y2="17" />
+      </svg>
+      <span className="hidden lg:inline">Retake Tour</span>
+    </button>
   );
 }
 
@@ -263,7 +297,7 @@ function BattlecardButton() {
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
         </svg>
-        <span className="hidden sm:inline">Battlecard</span>
+        <span className="hidden sm:inline">Generate Magic Battlecard</span>
       </button>
       {open && (
         <div className="fixed inset-0 z-50 flex items-start justify-center pt-[20vh]" onClick={() => setOpen(false)}>
