@@ -242,7 +242,7 @@ const TOUR_CARDS: TourCard[] = [
   {
     id: 'welcome',
     headline: 'Welcome to Intellibot!',
-    body: "This is an external demo for a PMM workshop ft. Claude Code I ran in San Francisco in March 2026. Don't worry — everything you see is dummy data, and no selections will be saved. So please, play around!",
+    body: "This is an external demo for a PMM workshop ft. Claude Code I ran in SF in March 2026. Don't worry: everything you see is dummy data, and no selections will be saved. So please, play around!",
     illustration: null, // Custom welcome layout
     isWelcome: true,
   },
@@ -319,6 +319,18 @@ export function WelcomeTour({ forceOpen = false, onClose }: WelcomeTourProps) {
       setCurrentCard((c) => c - 1);
     }
   }, [currentCard]);
+
+  // Keyboard navigation
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowRight') goNext();
+      else if (e.key === 'ArrowLeft') goPrev();
+      else if (e.key === 'Escape') closeTour();
+    };
+    window.addEventListener('keydown', handleKey);
+    return () => window.removeEventListener('keydown', handleKey);
+  }, [isOpen, goNext, goPrev, closeTour]);
 
   if (!isOpen) return null;
 

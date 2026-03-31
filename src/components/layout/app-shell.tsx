@@ -222,8 +222,10 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             <div className="flex justify-center mb-2">
               <img src="/llama.png" alt="Llama" width={56} height={56} className="opacity-60" />
             </div>
-            <div className="text-[11px] text-muted-foreground/60">
-              Made with ♥️ by Daria Zhao for the SF PMM community. Sign up for future events{' '}
+            <div className="text-[11px] text-muted-foreground/60 leading-relaxed">
+              Made with ♥️ by Daria Zhao for the SF PMM community.
+              <br />
+              Sign up for future events{' '}
               <a
                 href="https://luma.com/calendar/cal-y7Q8MCsPwKeiJ8r?period=past"
                 target="_blank"
@@ -232,7 +234,9 @@ export function AppShell({ children }: { children: React.ReactNode }) {
               >
                 here
               </a>
-              . © 2026. All rights reserved.
+              .
+              <br />
+              © 2026. All rights reserved.
             </div>
           </footer>
         </main>
