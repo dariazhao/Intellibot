@@ -134,6 +134,100 @@ function EventStreamIllustration() {
   );
 }
 
+function WelcomeHeroIllustration() {
+  return (
+    <div className="w-full h-48 rounded-xl bg-gradient-to-br from-[#6c5ce7]/20 via-[#1a8dff]/10 to-[#2ca66c]/15 border border-border overflow-hidden relative">
+      {/* Decorative glow */}
+      <div className="absolute -top-10 -right-10 w-40 h-40 rounded-full bg-[#6c5ce7]/10 blur-3xl" />
+      <div className="absolute -bottom-8 -left-8 w-32 h-32 rounded-full bg-[#1a8dff]/10 blur-3xl" />
+
+      {/* Mini app frame */}
+      <div className="absolute inset-3 rounded-lg bg-card/90 border border-border shadow-xl backdrop-blur-sm overflow-hidden flex">
+        {/* Sidebar */}
+        <div className="w-8 bg-[#6c5ce7] flex flex-col items-center py-2 gap-1.5 shrink-0">
+          <div className="w-4 h-4 rounded bg-white/20" />
+          <div className="w-1 h-1 rounded-full bg-white/50 mt-1" />
+          {[1, 2, 3, 4, 5].map((i) => (
+            <div key={i} className={`w-4 h-4 rounded ${i === 1 ? 'bg-white/30' : 'bg-white/10'}`} />
+          ))}
+        </div>
+
+        {/* Main content */}
+        <div className="flex-1 flex flex-col min-w-0">
+          {/* Top bar */}
+          <div className="h-5 border-b border-border flex items-center px-2 gap-1.5 shrink-0">
+            <div className="w-12 h-1.5 rounded-full bg-foreground/15" />
+            <div className="ml-auto flex gap-1">
+              <div className="w-3 h-3 rounded bg-muted" />
+              <div className="w-3 h-3 rounded bg-muted" />
+              <div className="w-14 h-3 rounded bg-[#6c5ce7]/25 border border-[#6c5ce7]/30" />
+            </div>
+          </div>
+
+          {/* Dashboard content */}
+          <div className="flex-1 p-2 flex flex-col gap-1.5">
+            {/* Metric cards row */}
+            <div className="flex gap-1">
+              {[
+                { val: '24', lbl: 'Accounts', color: '#6c5ce7' },
+                { val: '7', lbl: 'Threats', color: '#da545b' },
+                { val: '82%', lbl: 'Health', color: '#2ca66c' },
+                { val: '156', lbl: 'Signals', color: '#1a8dff' },
+              ].map((m) => (
+                <div key={m.lbl} className="flex-1 bg-background/60 rounded p-1 border border-border/50">
+                  <div className="text-[7px] text-muted-foreground leading-none">{m.lbl}</div>
+                  <div className="text-[10px] font-bold leading-tight">{m.val}</div>
+                  <div className="h-0.5 rounded-full mt-0.5 opacity-50" style={{ backgroundColor: m.color, width: '60%' }} />
+                </div>
+              ))}
+            </div>
+
+            {/* Chart + table row */}
+            <div className="flex-1 flex gap-1.5">
+              {/* Chart */}
+              <div className="flex-[5] bg-background/60 rounded border border-border/50 p-1.5 flex flex-col">
+                <div className="text-[7px] font-semibold text-foreground/60 mb-1">Competitive Pulse</div>
+                <div className="flex-1 flex items-end gap-[3px]">
+                  {[35, 55, 40, 70, 45, 65, 80, 50, 60, 42, 75, 58].map((h, i) => (
+                    <div
+                      key={i}
+                      className="flex-1 rounded-t"
+                      style={{
+                        height: `${h}%`,
+                        backgroundColor: i === 6 ? '#6c5ce7' : 'rgba(108,92,231,0.25)',
+                      }}
+                    />
+                  ))}
+                </div>
+              </div>
+
+              {/* Table */}
+              <div className="flex-[7] bg-background/60 rounded border border-border/50 p-1.5 flex flex-col gap-[3px]">
+                <div className="text-[7px] font-semibold text-foreground/60 mb-0.5">Top Accounts</div>
+                {[
+                  { name: 'Acme Corp', score: 92, color: '#2ca66c' },
+                  { name: 'TechVault', score: 78, color: '#e5a00d' },
+                  { name: 'DataFlow', score: 85, color: '#2ca66c' },
+                  { name: 'CloudSync', score: 64, color: '#da545b' },
+                ].map((a) => (
+                  <div key={a.name} className="flex items-center gap-1 h-3">
+                    <div className="w-2 h-2 rounded-full bg-muted" />
+                    <span className="text-[6px] flex-1 truncate">{a.name}</span>
+                    <div className="w-8 h-1 rounded-full bg-muted overflow-hidden">
+                      <div className="h-full rounded-full" style={{ width: `${a.score}%`, backgroundColor: a.color }} />
+                    </div>
+                    <span className="text-[6px] font-medium w-4 text-right">{a.score}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 /* ─── Card data ─── */
 
 interface TourCard {
@@ -258,27 +352,31 @@ export function WelcomeTour({ forceOpen = false, onClose }: WelcomeTourProps) {
           {/* Welcome card has special layout */}
           {card.isWelcome ? (
             <div className="flex flex-col items-center text-center">
-              {/* Headshot */}
-              <div className="w-20 h-20 rounded-full overflow-hidden border-2 border-primary/30 shadow-lg mb-4">
-                <img
-                  src="/daria-headshot.jpg"
-                  alt="Daria Zhao"
-                  className="w-full h-full object-cover"
-                />
-              </div>
+              {/* Hero product screenshot */}
+              <WelcomeHeroIllustration />
 
               {/* Step badge */}
-              <div className="text-[10px] font-medium tracking-wider uppercase text-primary mb-2">
+              <div className="text-[10px] font-medium tracking-wider uppercase text-primary mb-2 mt-5">
                 Getting Started
               </div>
 
               <h2 className="text-xl font-bold mb-3">{card.headline}</h2>
-              <p className="text-sm text-muted-foreground leading-relaxed max-w-md mb-4">
+              <p className="text-sm text-muted-foreground leading-relaxed max-w-md mb-5">
                 {card.body}
               </p>
 
-              <div className="text-xs text-muted-foreground/70 italic">
-                — Daria Zhao
+              {/* Signed with headshot */}
+              <div className="flex items-center gap-2.5">
+                <div className="w-9 h-9 rounded-full overflow-hidden border-2 border-primary/30 shadow-sm shrink-0">
+                  <img
+                    src="/daria-headshot.jpg"
+                    alt="Daria Zhao"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div className="text-xs text-muted-foreground/70 italic">
+                  — Daria Zhao
+                </div>
               </div>
             </div>
           ) : (
