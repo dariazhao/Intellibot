@@ -2,6 +2,7 @@
 
 import { motion } from 'motion/react';
 import { AreaChart, Area, ResponsiveContainer, Tooltip } from 'recharts';
+import { useTimeRange, TIME_RANGE_LABELS } from '@/lib/time-range-context';
 import type { Competitor } from '@/lib/schemas';
 
 interface CompetitivePulseProps {
@@ -14,7 +15,15 @@ const THREAT_COLORS: Record<string, string> = {
   low: '#2ca66c',
 };
 
+const RANGE_TREND_LABEL: Record<string, string> = {
+  '24h': 'Hourly trend',
+  '7d': '7-day trend',
+  '30d': '30-day trend',
+  '90d': '90-day trend',
+};
+
 export function CompetitivePulse({ competitors }: CompetitivePulseProps) {
+  const { range } = useTimeRange();
   const priorityOrder = { high: 0, medium: 1, low: 2 };
   const sorted = [...competitors].sort((a, b) => priorityOrder[a.threatLevel] - priorityOrder[b.threatLevel]);
 
@@ -23,14 +32,18 @@ export function CompetitivePulse({ competitors }: CompetitivePulseProps) {
       <div className="widget-card-header">
         <span>Competitive Pulse</span>
         <span className="text-[10px] font-normal normal-case tracking-normal text-muted-foreground">
-          12-month trend
+          {RANGE_TREND_LABEL[range]}
         </span>
       </div>
       <div className="divide-y divide-border">
         {sorted.map((comp, i) => {
-          const chartData = comp.trendData.map((v, idx) => ({ v, idx }));
+          // Vary the visible portion of trend data by time range
+          const sliceMap = { '24h': 6, '7d': 8, '30d': 10, '90d': 12 } as const;
+          const sliceLen = sliceMap[range];
+          const slicedTrend = comp.trendData.slice(-sliceLen);
+          const chartData = slicedTrend.map((v, idx) => ({ v, idx }));
           const color = THREAT_COLORS[comp.threatLevel];
-          const delta = comp.trendData[11] - comp.trendData[0];
+          const delta = slicedTrend[slicedTrend.length - 1] - slicedTrend[0];
           const deltaStr = delta > 0 ? `+${delta}` : `${delta}`;
           const isUp = delta > 0;
 
@@ -100,7 +113,7 @@ export function CompetitivePulse({ competitors }: CompetitivePulseProps) {
 
               {/* Delta */}
               <div className="text-right shrink-0 w-10">
-                <div className="text-[13px] font-mono font-medium">{comp.trendData[11]}</div>
+                <div className="text-[13px] font-mono font-medium">{slicedTrend[slicedTrend.length - 1]}</div>
                 <div className={`text-[10px] font-medium ${isUp ? 'text-[#da545b]' : 'text-[#2ca66c]'}`}>
                   {deltaStr}
                 </div>

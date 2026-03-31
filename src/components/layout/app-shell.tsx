@@ -6,6 +6,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { GlobalSearch } from './global-search';
 import { NotificationBell } from './notification-bell';
 import { WelcomeTour } from '@/components/onboarding/welcome-tour';
+import { TimeRangeProvider, useTimeRange, TIME_RANGE_LABELS, type TimeRange } from '@/lib/time-range-context';
 
 const NAV_ITEMS = [
   { href: '/', label: 'Dashboard', icon: 'home' },
@@ -125,13 +126,14 @@ const PAGE_TITLES: Record<string, string> = {
 
 function Breadcrumbs() {
   const pathname = usePathname();
+  const { range } = useTimeRange();
 
   if (pathname === '/') {
     return (
       <div className="flex items-center gap-2 text-[13px]">
         <span className="font-semibold text-foreground">Competitive Intel Overview</span>
         <span className="text-muted-foreground hidden sm:inline">—</span>
-        <span className="text-muted-foreground text-xs hidden sm:inline">Last 24 hours</span>
+        <span className="text-muted-foreground text-xs hidden sm:inline">{TIME_RANGE_LABELS[range]}</span>
       </div>
     );
   }
@@ -168,6 +170,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   const closeTour = useCallback(() => setTourOpen(false), []);
 
   return (
+    <TimeRangeProvider>
     <div className="flex h-screen bg-background">
       <WelcomeTour forceOpen={tourOpen} onClose={closeTour} />
       {/* Slim icon sidebar — hidden on mobile */}
@@ -242,6 +245,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         </main>
       </div>
     </div>
+    </TimeRangeProvider>
   );
 }
 
@@ -263,17 +267,47 @@ function RetakeTourButton({ onClick }: { onClick: () => void }) {
 }
 
 function TimeRangeSelector() {
+  const { range, setRange } = useTimeRange();
+  const [open, setOpen] = useState(false);
+
+  const options: TimeRange[] = ['24h', '7d', '30d', '90d'];
+
   return (
-    <button className="flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground transition-colors px-2 py-1 rounded border border-border hover:border-primary/50 bg-secondary/50">
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <circle cx="12" cy="12" r="10" />
-        <polyline points="12 6 12 12 16 14" />
-      </svg>
-      Past 24h
-      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <polyline points="6 9 12 15 18 9" />
-      </svg>
-    </button>
+    <div className="relative">
+      <button
+        onClick={() => setOpen(!open)}
+        className="flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground transition-colors px-2 py-1 rounded border border-border hover:border-primary/50 bg-secondary/50"
+      >
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <circle cx="12" cy="12" r="10" />
+          <polyline points="12 6 12 12 16 14" />
+        </svg>
+        {TIME_RANGE_LABELS[range]}
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={`transition-transform ${open ? 'rotate-180' : ''}`}>
+          <polyline points="6 9 12 15 18 9" />
+        </svg>
+      </button>
+      {open && (
+        <>
+          <div className="fixed inset-0 z-40" onClick={() => setOpen(false)} />
+          <div className="absolute right-0 top-full mt-1 z-50 bg-popover border border-border rounded-md shadow-lg py-1 min-w-[140px]">
+            {options.map((opt) => (
+              <button
+                key={opt}
+                onClick={() => { setRange(opt); setOpen(false); }}
+                className={`w-full text-left px-3 py-1.5 text-xs transition-colors ${
+                  opt === range
+                    ? 'text-primary font-medium bg-accent'
+                    : 'text-muted-foreground hover:text-foreground hover:bg-accent'
+                }`}
+              >
+                {TIME_RANGE_LABELS[opt]}
+              </button>
+            ))}
+          </div>
+        </>
+      )}
+    </div>
   );
 }
 
@@ -301,7 +335,7 @@ function BattlecardButton() {
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
         </svg>
-        <span className="hidden sm:inline">Generate Magic Battlecard</span>
+        <span className="hidden sm:inline">Generate Battlecard</span>
       </button>
       {open && (
         <div className="fixed inset-0 z-50 flex items-start justify-center pt-[20vh]" onClick={() => setOpen(false)}>

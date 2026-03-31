@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'motion/react';
+import { useTimeRange } from '@/lib/time-range-context';
 import type { Activity } from '@/lib/schemas';
 
 interface ActivityFeedProps {
@@ -29,16 +30,22 @@ function getEntityType(activity: Activity): string {
 }
 
 export function ActivityFeed({ activities }: ActivityFeedProps) {
+  const { range } = useTimeRange();
+
+  // Show more events for longer time ranges
+  const visibleCount = range === '24h' ? 8 : range === '7d' ? 12 : range === '30d' ? 20 : activities.length;
+  const visibleActivities = activities.slice(0, visibleCount);
+
   return (
     <div className="widget-card widget-blue">
       <div className="widget-card-header">
         <span>Event Stream</span>
         <span className="text-[10px] font-normal normal-case tracking-normal text-muted-foreground">
-          {activities.length} events
+          {visibleActivities.length} events
         </span>
       </div>
       <div className="divide-y divide-border">
-        {activities.map((activity, i) => {
+        {visibleActivities.map((activity, i) => {
           const source = SOURCE_CONFIG[activity.type] || { color: '#8c86a5', label: 'EVENT' };
           const entityType = getEntityType(activity);
           const entity = ENTITY_CONFIG[entityType] || ENTITY_CONFIG.customer;

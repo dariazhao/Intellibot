@@ -1,14 +1,21 @@
 'use client';
 
 import Link from 'next/link';
+import { useTimeRange } from '@/lib/time-range-context';
 import type { Account } from '@/lib/schemas';
 
 interface AccountsTableProps {
   accounts: Account[];
 }
 
+// Simulate health score drift over different time windows
+const HEALTH_DRIFT: Record<string, number> = { '24h': 0, '7d': -2, '30d': -5, '90d': -8 };
+
 export function AccountsTable({ accounts }: AccountsTableProps) {
-  const sorted = [...accounts].sort((a, b) => b.arr - a.arr);
+  const { range } = useTimeRange();
+  const drift = HEALTH_DRIFT[range] ?? 0;
+  const adjusted = accounts.map(a => ({ ...a, healthScore: Math.max(10, Math.min(100, a.healthScore + drift)) }));
+  const sorted = [...adjusted].sort((a, b) => b.arr - a.arr);
 
   return (
     <div className="widget-card widget-purple">
