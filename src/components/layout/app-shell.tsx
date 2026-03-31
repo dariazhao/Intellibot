@@ -237,9 +237,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
               >
                 here
               </a>
-              .
-              <br />
-              © 2026. All rights reserved.
+              . © 2026. All rights reserved.
             </div>
           </footer>
         </main>
