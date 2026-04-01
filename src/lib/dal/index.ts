@@ -8,6 +8,7 @@ import { gongTranscripts } from "@/lib/data/gong-transcripts";
 import { marketoEvents } from "@/lib/data/marketo-events";
 import { productReleases } from "@/lib/data/product-releases";
 import { roadmapItems } from "@/lib/data/roadmap-items";
+import { tcoCostProfiles } from "@/lib/data/tco-profiles";
 
 function delay(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -134,4 +135,21 @@ export async function getProductReleases() {
 export async function getRoadmapItems() {
   await delay(250);
   return roadmapItems;
+}
+
+// ── TCO Cost Profiles ───────────────────────────────────────────────────────
+
+export async function getTcoCostProfiles() {
+  await delay(300);
+  return tcoCostProfiles;
+}
+
+export async function getTcoCostProfileById(vendorId: string) {
+  await delay(250);
+  return tcoCostProfiles.find((p) => p.vendorId === vendorId) ?? null;
+}
+
+export async function getOurTcoCostProfile() {
+  await delay(200);
+  return tcoCostProfiles.find((p) => p.vendorType === "us")!;
 }

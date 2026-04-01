@@ -11,7 +11,6 @@ interface MetricWidgetsProps {
   competitors: Competitor[];
 }
 
-// Seed-based pseudo-random for consistent fake data per range
 function fakeTrend(base: number[], scale: number, points: number): { v: number; i: number }[] {
   const out: { v: number; i: number }[] = [];
   for (let i = 0; i < points; i++) {
@@ -25,13 +24,13 @@ function fakeTrend(base: number[], scale: number, points: number): { v: number; 
 const RANGE_CONFIG: Record<TimeRange, {
   healthMultiplier: number; healthDelta: string;
   signalCount: number; signalDelta: string;
-  battlecardCount: number; battlecardDelta: string;
   trendPoints: number;
+  winRate: number; winDelta: string;
 }> = {
-  '24h': { healthMultiplier: 1, healthDelta: '+3.2%', signalCount: 14, signalDelta: '+2', battlecardCount: 47, battlecardDelta: '+12 this week', trendPoints: 9 },
-  '7d':  { healthMultiplier: 0.98, healthDelta: '+1.8%', signalCount: 38, signalDelta: '+11', battlecardCount: 112, battlecardDelta: '+47 this week', trendPoints: 14 },
-  '30d': { healthMultiplier: 0.95, healthDelta: '+5.4%', signalCount: 156, signalDelta: '+42', battlecardCount: 384, battlecardDelta: '+89 this month', trendPoints: 20 },
-  '90d': { healthMultiplier: 0.91, healthDelta: '+12.1%', signalCount: 467, signalDelta: '+134', battlecardCount: 1024, battlecardDelta: '+312 this quarter', trendPoints: 24 },
+  '24h': { healthMultiplier: 1, healthDelta: '+3.2%', signalCount: 14, signalDelta: '+2', trendPoints: 9, winRate: 68, winDelta: '+4%' },
+  '7d':  { healthMultiplier: 0.98, healthDelta: '+1.8%', signalCount: 38, signalDelta: '+11', trendPoints: 14, winRate: 66, winDelta: '+2%' },
+  '30d': { healthMultiplier: 0.95, healthDelta: '+5.4%', signalCount: 156, signalDelta: '+42', trendPoints: 20, winRate: 64, winDelta: '+6%' },
+  '90d': { healthMultiplier: 0.91, healthDelta: '+12.1%', signalCount: 467, signalDelta: '+134', trendPoints: 24, winRate: 61, winDelta: '+9%' },
 };
 
 export function MetricWidgets({ accounts, competitors }: MetricWidgetsProps) {
@@ -39,30 +38,26 @@ export function MetricWidgets({ accounts, competitors }: MetricWidgetsProps) {
   const cfg = RANGE_CONFIG[range];
 
   const avgHealth = Math.round(accounts.reduce((s, a) => s + a.healthScore, 0) / accounts.length * cfg.healthMultiplier);
-  const highThreats = competitors.filter(c => c.threatLevel === 'high').length;
   const totalARR = accounts.reduce((s, a) => s + a.arr, 0);
-  const atRiskAccounts = accounts.filter(a => a.healthScore < 50).length + (range === '90d' ? 1 : 0);
+  const activeThreats = competitors.filter(c => c.threatLevel === 'high').length + (range === '90d' ? 1 : 0);
+  const atRisk = accounts.filter(a => a.healthScore < 50).length + (range === '90d' ? 1 : 0);
 
   const healthBase = [58, 62, 60, 65, 63, 68, 66, 70, 69, 72, 71, 74, 73, 75, 74, 76, 75, 77, 76, 78, 77, 79, 78, avgHealth];
   const arrBase = [8.1, 8.5, 8.8, 9.2, 9.5, 9.8, 10.1, 10.5, 10.8, 11.0, 11.3, 11.4, 11.7, 11.9, 12.0, 12.1, 12.2, 12.3, 12.4, 12.5, 12.6, 12.7, 12.8, totalARR / 1_000_000];
   const signalBase = [4, 8, 6, 12, 9, 15, 11, 14, 10, 13, 12, 14, 11, 16, 13, 15, 12, 17, 14, 16, 13, 18, 15, cfg.signalCount];
-  const battlecardBase = [12, 18, 22, 28, 31, 35, 38, 41, 44, 45, 47, 52, 58, 64, 70, 76, 82, 88, 94, 100, 106, 112, 118, cfg.battlecardCount];
+  const winBase = [52, 54, 55, 57, 58, 56, 59, 60, 58, 61, 62, 60, 63, 62, 64, 63, 65, 64, 66, 65, 67, 66, 68, cfg.winRate];
 
   const n = cfg.trendPoints;
-  const healthTrend = fakeTrend(healthBase.slice(-n), 1, n);
-  const arrTrend = fakeTrend(arrBase.slice(-n), 1, n);
-  const signalTrend = fakeTrend(signalBase.slice(-n), 1, n);
-  const battlecardTrend = fakeTrend(battlecardBase.slice(-n), 1, n);
 
   const widgets = [
     {
-      label: 'Avg Health Score',
+      label: 'Portfolio Health',
       numericValue: avgHealth, prefix: '', suffix: '', decimals: 0,
-      delta: cfg.healthDelta,
-      deltaUp: true,
+      delta: atRisk > 0 ? `${atRisk} at risk` : 'All clear',
+      deltaUp: atRisk === 0,
       color: '#2ca66c',
       accent: 'widget-green',
-      data: healthTrend,
+      data: fakeTrend(healthBase.slice(-n), 1, n),
     },
     {
       label: 'Total ARR',
@@ -71,48 +66,30 @@ export function MetricWidgets({ accounts, competitors }: MetricWidgetsProps) {
       deltaUp: true,
       color: '#632CA6',
       accent: 'widget-purple',
-      data: arrTrend,
+      data: fakeTrend(arrBase.slice(-n), 1, n),
     },
     {
-      label: 'Active Signals',
-      numericValue: cfg.signalCount, prefix: '', suffix: '', decimals: 0,
-      delta: cfg.signalDelta,
-      deltaUp: true,
-      color: '#1a8dff',
-      accent: 'widget-blue',
-      data: signalTrend,
-    },
-    {
-      label: 'High Threats',
-      numericValue: highThreats + (range === '90d' ? 1 : 0), prefix: '', suffix: '', decimals: 0,
-      delta: highThreats > 1 ? 'Active' : 'Low',
+      label: 'Active Threats',
+      numericValue: activeThreats, prefix: '', suffix: '', decimals: 0,
+      delta: `${cfg.signalCount} signals`,
       deltaUp: false,
       color: '#da545b',
       accent: 'widget-red',
-      data: signalTrend,
+      data: fakeTrend(signalBase.slice(-n), 1, n),
     },
     {
-      label: 'At-Risk Accounts',
-      numericValue: atRiskAccounts, prefix: '', suffix: '', decimals: 0,
-      delta: atRiskAccounts > 0 ? 'Needs attention' : 'Clear',
-      deltaUp: false,
-      color: '#e5a00d',
-      accent: 'widget-yellow',
-      data: healthTrend,
-    },
-    {
-      label: 'Battlecards Generated',
-      numericValue: cfg.battlecardCount, prefix: '', suffix: '', decimals: 0,
-      delta: cfg.battlecardDelta,
+      label: 'Win Rate',
+      numericValue: cfg.winRate, prefix: '', suffix: '%', decimals: 0,
+      delta: cfg.winDelta,
       deltaUp: true,
-      color: '#17b8be',
-      accent: 'widget-teal',
-      data: battlecardTrend,
+      color: '#1a8dff',
+      accent: 'widget-blue',
+      data: fakeTrend(winBase.slice(-n), 1, n),
     },
   ];
 
   return (
-    <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-3">
+    <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
       {widgets.map((w, i) => (
         <motion.div
           key={w.label}

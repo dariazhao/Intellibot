@@ -58,7 +58,7 @@ export function CompareView({ competitors }: CompareViewProps) {
         animate={{ opacity: 1, y: 0 }}
         className="rounded-xl border border-border bg-card p-5"
       >
-        <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-4">Market Trend (12 months)</h3>
+        <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-4">Competitive Momentum (12 months)</h3>
         <div className="h-48">
           <ResponsiveContainer width="100%" height="100%">
             <AreaChart data={chartData}>
@@ -106,7 +106,7 @@ export function CompareView({ competitors }: CompareViewProps) {
         className="rounded-xl border border-border bg-card overflow-hidden"
       >
         <div className="px-5 py-3 border-b border-border">
-          <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">Feature Matrix</h3>
+          <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">Capability Matrix: Us vs. Them</h3>
         </div>
         <table className="w-full text-sm">
           <thead>

@@ -14,29 +14,53 @@ interface WelcomeTourProps {
 function DashboardIllustration() {
   return (
     <div className="w-full h-44 rounded-lg bg-gradient-to-br from-[#6c5ce7]/10 to-[#1a8dff]/10 border border-border overflow-hidden p-3 flex flex-col gap-2">
-      {/* Metric row */}
-      <div className="flex gap-2">
+      {/* 4 Metric row */}
+      <div className="flex gap-1.5">
         {[
-          { label: 'Accounts', value: '24', color: 'bg-[#6c5ce7]' },
-          { label: 'Threats', value: '7', color: 'bg-[#da545b]' },
-          { label: 'Score', value: '82%', color: 'bg-[#2ca66c]' },
+          { label: 'Health', value: '74', color: 'bg-[#2ca66c]' },
+          { label: 'ARR', value: '$12.9M', color: 'bg-[#6c5ce7]' },
+          { label: 'Threats', value: '2', color: 'bg-[#da545b]' },
+          { label: 'Win Rate', value: '68%', color: 'bg-[#1a8dff]' },
         ].map((m) => (
-          <div key={m.label} className="flex-1 bg-card rounded-md p-2 border border-border">
-            <div className="text-[9px] text-muted-foreground">{m.label}</div>
-            <div className="text-sm font-bold">{m.value}</div>
-            <div className={`h-1 w-3/4 rounded-full mt-1 ${m.color} opacity-60`} />
+          <div key={m.label} className="flex-1 bg-card rounded-md p-1.5 border border-border">
+            <div className="text-[7px] text-muted-foreground">{m.label}</div>
+            <div className="text-[10px] font-bold">{m.value}</div>
+            <div className={`h-0.5 w-3/4 rounded-full mt-0.5 ${m.color} opacity-60`} />
           </div>
         ))}
       </div>
-      {/* Chart area */}
-      <div className="flex-1 bg-card rounded-md border border-border p-2 flex items-end gap-1">
-        {[40, 65, 45, 80, 55, 70, 90, 60, 75, 50, 85, 68].map((h, i) => (
-          <div
-            key={i}
-            className="flex-1 rounded-t bg-[#6c5ce7]/40"
-            style={{ height: `${h}%` }}
-          />
-        ))}
+      {/* Deal Assist + Table row */}
+      <div className="flex-1 flex gap-1.5">
+        <div className="w-[90px] bg-card rounded-md border border-border p-1.5 flex flex-col gap-1 shrink-0">
+          <div className="text-[7px] font-semibold text-muted-foreground">Win the Deal</div>
+          {[
+            { label: 'Battlecards', color: 'bg-[#6c5ce7]' },
+            { label: 'TCO Analysis', color: 'bg-[#17b8be]' },
+            { label: 'Head-to-Head', color: 'bg-[#1a8dff]' },
+            { label: 'Competitor Intel', color: 'bg-[#e5a00d]' },
+          ].map((a) => (
+            <div key={a.label} className="flex items-center gap-1">
+              <div className={`w-1.5 h-1.5 rounded-sm ${a.color} opacity-60`} />
+              <span className="text-[6px] text-muted-foreground">{a.label}</span>
+            </div>
+          ))}
+        </div>
+        <div className="flex-1 bg-card rounded-md border border-border p-1.5 flex flex-col gap-[3px]">
+          <div className="text-[7px] font-semibold text-muted-foreground">Accounts</div>
+          {[
+            { name: 'TitanForge', health: 91, color: '#2ca66c' },
+            { name: 'Meridian', health: 82, color: '#2ca66c' },
+            { name: 'Pinnacle', health: 73, color: '#e5a00d' },
+            { name: 'NovaBright', health: 45, color: '#da545b' },
+          ].map((a) => (
+            <div key={a.name} className="flex items-center gap-1 h-2.5">
+              <span className="text-[6px] flex-1 truncate">{a.name}</span>
+              <div className="w-8 h-1 rounded-full bg-muted overflow-hidden">
+                <div className="h-full rounded-full" style={{ width: `${a.health}%`, backgroundColor: a.color }} />
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
@@ -87,6 +111,54 @@ function BattlecardIllustration() {
           </div>
         </div>
       ))}
+    </div>
+  );
+}
+
+function TcoIllustration() {
+  return (
+    <div className="w-full h-44 rounded-lg bg-gradient-to-br from-[#17b8be]/10 to-[#2ca66c]/10 border border-border overflow-hidden p-3 flex flex-col gap-2">
+      {/* Pricing model selector mini */}
+      <div className="flex gap-1.5 mb-0.5">
+        {[
+          { label: 'Per-Seat', active: true },
+          { label: 'Usage', active: false },
+          { label: 'Hybrid', active: false },
+          { label: 'Flat', active: false },
+        ].map((m) => (
+          <div
+            key={m.label}
+            className={`text-[7px] font-semibold px-1.5 py-0.5 rounded ${
+              m.active ? 'bg-[#17b8be]/20 text-[#17b8be] border border-[#17b8be]/30' : 'bg-muted text-muted-foreground border border-border'
+            }`}
+          >
+            {m.label}
+          </div>
+        ))}
+      </div>
+      {/* Cost bars */}
+      <div className="flex-1 bg-card rounded-md border border-border p-2 flex flex-col justify-center gap-1.5">
+        {[
+          { vendor: 'Us', cost: 45, color: 'bg-[#2ca66c]' },
+          { vendor: 'Comp A', cost: 78, color: 'bg-[#6c5ce7]' },
+          { vendor: 'Comp D', cost: 92, color: 'bg-[#1a8dff]' },
+        ].map((v) => (
+          <div key={v.vendor} className="flex items-center gap-1.5">
+            <span className="text-[8px] text-muted-foreground w-10 text-right">{v.vendor}</span>
+            <div className="flex-1 h-4 bg-muted/30 rounded overflow-hidden">
+              <div className={`h-full ${v.color} rounded`} style={{ width: `${v.cost}%` }} />
+            </div>
+            <span className="text-[8px] font-mono font-bold w-9 text-right">${v.cost * 5}K</span>
+          </div>
+        ))}
+      </div>
+      {/* Savings callout */}
+      <div className="bg-[#2ca66c]/10 border border-[#2ca66c]/20 rounded-md px-2 py-1 flex items-center gap-1.5">
+        <div className="w-3 h-3 rounded-full bg-[#2ca66c]/20 flex items-center justify-center">
+          <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="#2ca66c" strokeWidth="3" strokeLinecap="round"><polyline points="20 6 9 17 4 12" /></svg>
+        </div>
+        <span className="text-[9px] font-semibold text-[#2ca66c]">$165K savings over 3 years</span>
+      </div>
     </div>
   );
 }
@@ -144,11 +216,16 @@ function WelcomeHeroIllustration() {
       {/* Mini app frame */}
       <div className="absolute inset-3 rounded-lg bg-card/90 border border-border shadow-xl backdrop-blur-sm overflow-hidden flex">
         {/* Sidebar */}
-        <div className="w-8 bg-[#6c5ce7] flex flex-col items-center py-2 gap-1.5 shrink-0">
+        <div className="w-8 bg-[#6c5ce7] flex flex-col items-center py-2 gap-1 shrink-0">
           <div className="w-4 h-4 rounded bg-white/20" />
-          <div className="w-1 h-1 rounded-full bg-white/50 mt-1" />
-          {[1, 2, 3, 4, 5].map((i) => (
-            <div key={i} className={`w-4 h-4 rounded ${i === 1 ? 'bg-white/30' : 'bg-white/10'}`} />
+          <div className="w-3 h-px bg-white/20 mt-1" />
+          <div className="w-4 h-4 rounded bg-white/30" />
+          {[2, 3, 4].map((i) => (
+            <div key={i} className="w-4 h-4 rounded bg-white/10" />
+          ))}
+          <div className="w-3 h-px bg-white/20" />
+          {[5, 6].map((i) => (
+            <div key={i} className="w-4 h-4 rounded bg-white/10" />
           ))}
         </div>
 
@@ -159,8 +236,8 @@ function WelcomeHeroIllustration() {
             <div className="w-12 h-1.5 rounded-full bg-foreground/15" />
             <div className="ml-auto flex gap-1">
               <div className="w-3 h-3 rounded bg-muted" />
-              <div className="w-3 h-3 rounded bg-muted" />
-              <div className="w-14 h-3 rounded bg-[#6c5ce7]/25 border border-[#6c5ce7]/30" />
+              <div className="w-10 h-3 rounded bg-[#17b8be]/20 border border-[#17b8be]/30" />
+              <div className="w-10 h-3 rounded bg-[#6c5ce7]/25 border border-[#6c5ce7]/30" />
             </div>
           </div>
 
@@ -169,10 +246,10 @@ function WelcomeHeroIllustration() {
             {/* Metric cards row */}
             <div className="flex gap-1">
               {[
-                { val: '24', lbl: 'Accounts', color: '#6c5ce7' },
-                { val: '7', lbl: 'Threats', color: '#da545b' },
-                { val: '82%', lbl: 'Health', color: '#2ca66c' },
-                { val: '156', lbl: 'Signals', color: '#1a8dff' },
+                { val: '74', lbl: 'Health', color: '#2ca66c' },
+                { val: '$12.9M', lbl: 'ARR', color: '#6c5ce7' },
+                { val: '2', lbl: 'Threats', color: '#da545b' },
+                { val: '68%', lbl: 'Win Rate', color: '#1a8dff' },
               ].map((m) => (
                 <div key={m.lbl} className="flex-1 bg-background/60 rounded p-1 border border-border/50">
                   <div className="text-[7px] text-muted-foreground leading-none">{m.lbl}</div>
@@ -201,22 +278,21 @@ function WelcomeHeroIllustration() {
                 </div>
               </div>
 
-              {/* Table */}
+              {/* Deal Assist + Accounts */}
               <div className="flex-[7] bg-background/60 rounded border border-border/50 p-1.5 flex flex-col gap-[3px]">
-                <div className="text-[7px] font-semibold text-foreground/60 mb-0.5">Top Accounts</div>
+                <div className="text-[7px] font-semibold text-foreground/60 mb-0.5">Win the Deal</div>
                 {[
-                  { name: 'Acme Corp', score: 92, color: '#2ca66c' },
-                  { name: 'TechVault', score: 78, color: '#e5a00d' },
-                  { name: 'DataFlow', score: 85, color: '#2ca66c' },
-                  { name: 'CloudSync', score: 64, color: '#da545b' },
+                  { name: 'Battlecards', color: '#6c5ce7' },
+                  { name: 'TCO Analysis', color: '#17b8be' },
+                  { name: 'Head-to-Head', color: '#1a8dff' },
+                  { name: 'Competitor Intel', color: '#e5a00d' },
                 ].map((a) => (
                   <div key={a.name} className="flex items-center gap-1 h-3">
-                    <div className="w-2 h-2 rounded-full bg-muted" />
+                    <div className="w-2 h-2 rounded-sm" style={{ backgroundColor: a.color, opacity: 0.4 }} />
                     <span className="text-[6px] flex-1 truncate">{a.name}</span>
-                    <div className="w-8 h-1 rounded-full bg-muted overflow-hidden">
-                      <div className="h-full rounded-full" style={{ width: `${a.score}%`, backgroundColor: a.color }} />
+                    <div className="w-2 h-2 rounded text-muted-foreground/30">
+                      <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="9 18 15 12 9 6" /></svg>
                     </div>
-                    <span className="text-[6px] font-medium w-4 text-right">{a.score}</span>
                   </div>
                 ))}
               </div>
@@ -236,45 +312,62 @@ interface TourCard {
   body: string;
   illustration: React.ReactNode;
   isWelcome?: boolean;
+  group?: 'win' | 'intel';
 }
+
+const GROUP_LABELS: Record<string, { label: string; color: string }> = {
+  win: { label: 'Win the Deal', color: '#632CA6' },
+  intel: { label: 'Know the Market', color: '#1a8dff' },
+};
 
 const TOUR_CARDS: TourCard[] = [
   {
     id: 'welcome',
     headline: 'Welcome to Intellibot!',
-    body: "This is an external demo for a PMM workshop ft. Claude Code I ran in SF in March 2026. Don't worry: everything you see is dummy data, and no selections will be saved. So please, play around!",
-    illustration: null, // Custom welcome layout
+    body: "This is an external demo for a PMM workshop I ran in March 2026. Everything you see is dummy data, and no selections will be saved. So please, play around!",
+    illustration: null,
     isWelcome: true,
   },
   {
     id: 'dashboard',
-    headline: 'Your Command Center',
-    body: 'The dashboard gives you a real-time pulse on your competitive landscape — account health scores, threat levels, and recent activity, all at a glance.',
+    headline: 'Intellibot Field HQ',
+    body: 'Your home base. Intellibot helps you do two things: Win the Deal and Know the Market. Field HQ shows portfolio health, ARR, active threats, win rate, and quick-launch actions across both.',
     illustration: <DashboardIllustration />,
   },
   {
-    id: 'competitors',
-    headline: 'Know Your Rivals',
-    body: 'Browse your full competitor directory with threat assessments, market positioning, and win/loss trends. Click any competitor to dive deep into their profile.',
-    illustration: <CompetitorIllustration />,
+    id: 'battlecards',
+    headline: 'Battlecards',
+    body: 'AI-generated competitive talking points tailored to any account. Objection handlers, differentiators, and talk tracks ready for your next call.',
+    illustration: <BattlecardIllustration />,
+    group: 'win',
   },
   {
-    id: 'battlecards',
-    headline: 'Magic Battlecards, On Demand',
-    body: 'Generate AI-powered battlecards tailored to any account. Get talk tracks, objection handlers, and competitive differentiators — ready for your next call.',
-    illustration: <BattlecardIllustration />,
+    id: 'tco',
+    headline: 'TCO Analysis',
+    body: 'Build a Total Cost of Ownership comparison in minutes. Pick your pricing model, select competitors, and get a full AE + SE narrative to present.',
+    illustration: <TcoIllustration />,
+    group: 'win',
   },
   {
     id: 'compare',
-    headline: 'Side-by-Side Comparison',
-    body: 'Stack competitors head-to-head with feature matrices, strength/weakness breakdowns, and trend analysis to sharpen your positioning.',
+    headline: 'Head-to-Head',
+    body: 'Go head-to-head against the competitors in your deal. Capability matrix, strength/weakness breakdowns, and market momentum to sharpen your positioning.',
     illustration: <CompareIllustration />,
+    group: 'win',
+  },
+  {
+    id: 'competitors',
+    headline: 'Competitor Intel',
+    body: 'Deep profiles on every competitor: threat assessments, market positioning, recent news, and win/loss trends. Click any rival to dive deeper.',
+    illustration: <CompetitorIllustration />,
+    group: 'intel',
   },
   {
     id: 'events',
-    headline: 'Never Miss a Signal',
-    body: 'The Event Stream surfaces real-time competitive intelligence — pricing changes, G2 reviews, deal mentions, and market moves — as they happen.',
+    headline: 'Signals',
+    body: 'Real-time competitive intelligence: pricing changes, G2 reviews, deal mentions, and market moves surfaced as they happen.',
     illustration: <EventStreamIllustration />,
+    group: 'intel',
   },
 ];
 
@@ -373,9 +466,21 @@ export function WelcomeTour({ forceOpen = false, onClose }: WelcomeTourProps) {
               </div>
 
               <h2 className="text-xl font-bold mb-3">{card.headline}</h2>
-              <p className="text-sm text-muted-foreground leading-relaxed max-w-md mb-5">
+              <p className="text-sm text-muted-foreground leading-relaxed max-w-md mb-4">
                 {card.body}
               </p>
+
+              {/* Two pillars */}
+              <div className="flex gap-3 mb-5 w-full max-w-sm">
+                <div className="flex-1 rounded-lg px-3 py-2.5 border text-center" style={{ borderColor: '#632CA620', backgroundColor: '#632CA608' }}>
+                  <div className="text-[10px] font-bold uppercase tracking-wider mb-0.5" style={{ color: '#632CA6' }}>Win the Deal</div>
+                  <div className="text-[10px] text-muted-foreground">Battlecards, TCO, Head-to-Head</div>
+                </div>
+                <div className="flex-1 rounded-lg px-3 py-2.5 border text-center" style={{ borderColor: '#1a8dff20', backgroundColor: '#1a8dff08' }}>
+                  <div className="text-[10px] font-bold uppercase tracking-wider mb-0.5" style={{ color: '#1a8dff' }}>Know the Market</div>
+                  <div className="text-[10px] text-muted-foreground">Competitor Intel, Signals</div>
+                </div>
+              </div>
 
               {/* Signed with headshot */}
               <div className="flex items-center gap-2.5">
@@ -393,9 +498,22 @@ export function WelcomeTour({ forceOpen = false, onClose }: WelcomeTourProps) {
             </div>
           ) : (
             <>
-              {/* Step indicator */}
-              <div className="text-[10px] font-medium tracking-wider uppercase text-primary mb-3">
-                {currentCard} of {TOUR_CARDS.length - 1}
+              {/* Group badge + step indicator */}
+              <div className="flex items-center gap-2 mb-3">
+                {card.group && GROUP_LABELS[card.group] && (
+                  <span
+                    className="text-[10px] font-bold tracking-wider uppercase px-2 py-0.5 rounded-full"
+                    style={{
+                      backgroundColor: `${GROUP_LABELS[card.group].color}15`,
+                      color: GROUP_LABELS[card.group].color,
+                    }}
+                  >
+                    {GROUP_LABELS[card.group].label}
+                  </span>
+                )}
+                <span className="text-[10px] font-medium tracking-wider uppercase text-muted-foreground">
+                  {currentCard} of {TOUR_CARDS.length - 1}
+                </span>
               </div>
 
               {/* Illustration */}

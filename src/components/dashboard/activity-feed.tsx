@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { motion } from 'motion/react';
 import { useTimeRange } from '@/lib/time-range-context';
 import type { Activity } from '@/lib/schemas';
@@ -32,16 +33,16 @@ function getEntityType(activity: Activity): string {
 export function ActivityFeed({ activities }: ActivityFeedProps) {
   const { range } = useTimeRange();
 
-  // Show more events for longer time ranges
-  const visibleCount = range === '24h' ? 8 : range === '7d' ? 12 : range === '30d' ? 20 : activities.length;
+  const visibleCount = range === '24h' ? 5 : range === '7d' ? 6 : range === '30d' ? 7 : 8;
+  const totalCount = range === '24h' ? 8 : range === '7d' ? 12 : range === '30d' ? 20 : activities.length;
   const visibleActivities = activities.slice(0, visibleCount);
 
   return (
     <div className="widget-card widget-blue">
       <div className="widget-card-header">
-        <span>Event Stream</span>
+        <span>Recent Activity</span>
         <span className="text-[10px] font-normal normal-case tracking-normal text-muted-foreground">
-          {visibleActivities.length} events
+          {totalCount} events
         </span>
       </div>
       <div className="divide-y divide-border">
@@ -102,6 +103,15 @@ export function ActivityFeed({ activities }: ActivityFeedProps) {
           );
         })}
       </div>
+      {totalCount > visibleCount && (
+        <Link
+          href="/events"
+          className="flex items-center justify-center gap-1.5 px-3 py-2.5 text-xs font-medium text-primary hover:text-primary/80 hover:bg-accent/50 transition-colors border-t border-border"
+        >
+          View all {totalCount} events
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6" /></svg>
+        </Link>
+      )}
     </div>
   );
 }

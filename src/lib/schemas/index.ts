@@ -185,3 +185,61 @@ export const RoadmapItemSchema = z.object({
 });
 
 export type RoadmapItem = z.infer<typeof RoadmapItemSchema>;
+
+// ── TCO Cost Profile ────────────────────────────────────────────────────────
+
+export const TcoCostProfileSchema = z.object({
+  vendorId: z.string(),
+  vendorName: z.string(),
+  vendorType: z.enum(["us", "competitor"]),
+
+  // Seat-based licensing
+  pricePerSeatMonth: z.number(),
+  platformFeeAnnual: z.number(),
+
+  // Usage/consumption-based licensing
+  usagePricePerUnit: z.number(),
+  usageUnitLabel: z.string(),
+  estimatedMonthlyUnits: z.number(),
+
+  // Hybrid licensing (base + usage)
+  hybridBaseFeeMonthly: z.number(),
+  hybridPricePerUnit: z.number(),
+  hybridUnitLabel: z.string(),
+  hybridEstimatedMonthlyUnits: z.number(),
+
+  // Flat-rate / enterprise license
+  flatRateAnnual: z.number(),
+
+  // One-time costs
+  implementationCost: z.number(),
+  dataMigrationCost: z.number(),
+  trainingCost: z.number(),
+
+  // Support
+  supportTier: z.enum([
+    "included",
+    "included_basic",
+    "premium_required",
+    "paid_required",
+    "tiered",
+    "limited",
+  ]),
+  supportCostAnnual: z.number(),
+
+  // Operations
+  adminFtePct: z.number().min(0).max(100),
+
+  // Integration
+  integrationCostPerConnector: z.number(),
+  avgConnectorsNeeded: z.number(),
+
+  // Hidden / Risk
+  avgDowntimeHoursPerYear: z.number(),
+  customizationCostAnnual: z.number(),
+
+  // Context
+  assumptions: z.array(z.string()),
+});
+
+export type TcoCostProfile = z.infer<typeof TcoCostProfileSchema>;

@@ -8,13 +8,19 @@ import { NotificationBell } from './notification-bell';
 import { WelcomeTour } from '@/components/onboarding/welcome-tour';
 import { TimeRangeProvider, useTimeRange, TIME_RANGE_LABELS, type TimeRange } from '@/lib/time-range-context';
 
+const NAV_GROUPS: Record<string, string> = {
+  win: 'Win the Deal',
+  intel: 'Know the Market',
+};
+
 const NAV_ITEMS = [
-  { href: '/', label: 'Dashboard', icon: 'home' },
-  { href: '/competitors', label: 'Competitors', icon: 'sword' },
-  { href: '/compare', label: 'Compare', icon: 'compare' },
-  { href: '/battlecards', label: 'Battlecards', icon: 'bolt' },
-  { href: '/events', label: 'Event Stream', icon: 'stream' },
-  { href: '/settings', label: 'Settings', icon: 'gear' },
+  { href: '/', label: 'Intellibot Field HQ', icon: 'home' },
+  { href: '/battlecards', label: 'Battlecards', icon: 'bolt', group: 'win' },
+  { href: '/tco', label: 'TCO Analysis', icon: 'calculator', group: 'win' },
+  { href: '/compare', label: 'Head-to-Head', icon: 'compare', group: 'win' },
+  { href: '/competitors', label: 'Competitor Intel', icon: 'sword', group: 'intel' },
+  { href: '/events', label: 'Signals', icon: 'stream', group: 'intel' },
+  { href: '/settings', label: 'Settings', icon: 'gear', group: 'system' },
 ] as const;
 
 function NavIcon({ icon, size = 20 }: { icon: string; size?: number }) {
@@ -57,6 +63,22 @@ function NavIcon({ icon, size = 20 }: { icon: string; size?: number }) {
         <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
           <path d="M2 12h4" /><path d="M18 12h4" />
           <path d="M6 8v8" /><path d="M10 5v14" /><path d="M14 7v10" /><path d="M18 10v4" />
+        </svg>
+      );
+    case 'calculator':
+      return (
+        <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="4" y="2" width="16" height="20" rx="2" />
+          <line x1="8" y1="6" x2="16" y2="6" />
+          <line x1="8" y1="10" x2="8.01" y2="10" />
+          <line x1="12" y1="10" x2="12.01" y2="10" />
+          <line x1="16" y1="10" x2="16.01" y2="10" />
+          <line x1="8" y1="14" x2="8.01" y2="14" />
+          <line x1="12" y1="14" x2="12.01" y2="14" />
+          <line x1="16" y1="14" x2="16.01" y2="14" />
+          <line x1="8" y1="18" x2="8.01" y2="18" />
+          <line x1="12" y1="18" x2="12.01" y2="18" />
+          <line x1="16" y1="18" x2="16.01" y2="18" />
         </svg>
       );
     case 'gear':
@@ -116,12 +138,21 @@ function MobileNavLink({ href, label, icon }: { href: string; label: string; ico
 }
 
 const PAGE_TITLES: Record<string, string> = {
-  '/': 'Dashboards',
-  '/competitors': 'Competitors',
-  '/compare': 'Compare',
+  '/': 'Intellibot Field HQ',
   '/battlecards': 'Battlecards',
-  '/events': 'Event Stream',
+  '/tco': 'TCO Analysis',
+  '/compare': 'Head-to-Head',
+  '/competitors': 'Competitor Intel',
+  '/events': 'Signals',
   '/settings': 'Settings',
+};
+
+const PAGE_GROUPS: Record<string, string> = {
+  '/battlecards': 'Win the Deal',
+  '/tco': 'Win the Deal',
+  '/compare': 'Win the Deal',
+  '/competitors': 'Know the Market',
+  '/events': 'Know the Market',
 };
 
 function Breadcrumbs() {
@@ -131,12 +162,15 @@ function Breadcrumbs() {
   if (pathname === '/') {
     return (
       <div className="flex items-center gap-2 text-[13px]">
-        <span className="font-semibold text-foreground">Competitive Intel Overview</span>
-        <span className="text-muted-foreground hidden sm:inline">—</span>
+        <span className="font-semibold text-foreground">Intellibot Field HQ</span>
         <span className="text-muted-foreground text-xs hidden sm:inline">{TIME_RANGE_LABELS[range]}</span>
       </div>
     );
   }
+
+  // Find the group for the current top-level path
+  const topPath = '/' + pathname.split('/').filter(Boolean)[0];
+  const group = PAGE_GROUPS[topPath];
 
   const segments = pathname.split('/').filter(Boolean);
   const crumbs = segments.map((segment, index) => {
@@ -147,6 +181,12 @@ function Breadcrumbs() {
 
   return (
     <div className="flex items-center gap-1.5 text-[13px]">
+      {group && (
+        <>
+          <span className="text-muted-foreground/60 text-xs font-medium hidden sm:inline">{group}</span>
+          <span className="text-muted-foreground/40 hidden sm:inline">/</span>
+        </>
+      )}
       {crumbs.map((crumb, i) => (
         <span key={i} className="flex items-center gap-1.5">
           {i > 0 && <span className="text-muted-foreground">/</span>}
@@ -184,9 +224,28 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
         {/* Nav icons */}
         <nav className="flex-1 flex flex-col items-center gap-1 py-3">
-          {NAV_ITEMS.map((item) => (
-            <IconNavLink key={item.href} href={item.href} label={item.label} icon={item.icon} />
-          ))}
+          {NAV_ITEMS.map((item, i) => {
+            const prev = NAV_ITEMS[i - 1];
+            const currentGroup = 'group' in item ? (item as { group?: string }).group : undefined;
+            const prevGroup = prev && 'group' in prev ? (prev as { group?: string }).group : undefined;
+            const isNewGroup = i > 0 && currentGroup && currentGroup !== prevGroup;
+            const groupLabel = currentGroup && NAV_GROUPS[currentGroup];
+            return (
+              <div key={item.href} className="flex flex-col items-center w-full">
+                {isNewGroup && (
+                  <div className="flex flex-col items-center w-full my-1">
+                    <div className="w-5 h-px bg-sidebar-border" />
+                    {groupLabel && (
+                      <span className="text-[7px] font-bold uppercase tracking-[0.1em] text-sidebar-foreground/30 mt-1.5 mb-0.5">
+                        {currentGroup === 'win' ? 'WIN' : currentGroup === 'intel' ? 'INTEL' : ''}
+                      </span>
+                    )}
+                  </div>
+                )}
+                <IconNavLink href={item.href} label={item.label} icon={item.icon} />
+              </div>
+            );
+          })}
         </nav>
 
         {/* Status dot */}
@@ -214,6 +273,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             <GlobalSearch />
             <NotificationBell />
             <RetakeTourButton onClick={openTour} />
+            <TcoButton />
             <BattlecardButton />
           </div>
         </header>
@@ -226,7 +286,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
               <img src="/llama.png" alt="Llama" width={56} height={56} className="opacity-60" />
             </div>
             <div className="text-[11px] text-muted-foreground/60 leading-relaxed">
-              Made with ♥️ by Daria Zhao for the SF PMM community.
+              Made with ♥️ by Daria Zhao.
               <br />
               Sign up for future events{' '}
               <a
@@ -308,6 +368,70 @@ function TimeRangeSelector() {
   );
 }
 
+function TcoButton() {
+  const [open, setOpen] = useState(false);
+  const router = useRouter();
+
+  const models = [
+    { value: 'seat_based', label: 'Per-Seat', desc: 'Fixed price per user per month', icon: '👤' },
+    { value: 'usage_based', label: 'Consumption', desc: 'Pay-per-use: compute, API calls, tokens', icon: '📊' },
+    { value: 'hybrid', label: 'Hybrid', desc: 'Base platform fee plus variable usage', icon: '🔀' },
+    { value: 'flat_rate', label: 'Flat-Rate', desc: 'Single annual fee regardless of usage', icon: '📋' },
+  ];
+
+  return (
+    <>
+      <button
+        onClick={() => setOpen(true)}
+        className="flex items-center gap-1.5 text-[12px] font-medium text-dd-teal hover:text-foreground transition-colors px-2 py-1 rounded bg-dd-teal/10 hover:bg-dd-teal/20 border border-dd-teal/30"
+      >
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="4" y="2" width="16" height="20" rx="2" />
+          <line x1="8" y1="6" x2="16" y2="6" />
+          <line x1="8" y1="10" x2="12" y2="10" />
+          <line x1="8" y1="14" x2="16" y2="14" />
+          <line x1="8" y1="18" x2="12" y2="18" />
+        </svg>
+        <span className="hidden sm:inline">TCO Analysis</span>
+      </button>
+      {open && (
+        <div className="fixed inset-0 z-50 flex items-start justify-center pt-[20vh]" onClick={() => setOpen(false)}>
+          <div className="absolute inset-0 bg-black/60" />
+          <div
+            className="relative w-full max-w-sm mx-4 bg-popover border border-border rounded-lg shadow-2xl overflow-hidden"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="px-3 py-2 border-b border-border text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
+              Select pricing model
+            </div>
+            <div className="py-1">
+              {models.map((m) => (
+                <button
+                  key={m.value}
+                  onClick={() => {
+                    setOpen(false);
+                    router.push(`/tco?model=${m.value}`);
+                  }}
+                  className="w-full flex items-center gap-3 px-3 py-2.5 hover:bg-accent transition-colors text-left"
+                >
+                  <span className="text-base">{m.icon}</span>
+                  <div className="flex-1 min-w-0">
+                    <div className="text-[13px] font-medium">{m.label}</div>
+                    <div className="text-[11px] text-muted-foreground">{m.desc}</div>
+                  </div>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-muted-foreground shrink-0">
+                    <polyline points="9 18 15 12 9 6" />
+                  </svg>
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+    </>
+  );
+}
+
 function BattlecardButton() {
   const [open, setOpen] = useState(false);
   const [accounts, setAccounts] = useState<Array<{ slug: string; name: string; logo: string }>>([]);
@@ -332,7 +456,7 @@ function BattlecardButton() {
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
         </svg>
-        <span className="hidden sm:inline">Generate Battlecard</span>
+        <span className="hidden sm:inline">Battlecard</span>
       </button>
       {open && (
         <div className="fixed inset-0 z-50 flex items-start justify-center pt-[20vh]" onClick={() => setOpen(false)}>
