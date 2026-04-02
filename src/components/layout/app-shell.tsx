@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
+import { motion } from 'motion/react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { GlobalSearch } from './global-search';
@@ -493,7 +494,11 @@ function FloatingQuickLinks() {
   return (
     <>
       {/* Floating pill - bottom right */}
-      <div className="hidden md:flex fixed bottom-5 right-5 z-30 items-center gap-1 rounded-full bg-sidebar shadow-2xl shadow-sidebar/40 px-1.5 py-1.5 transition-transform duration-300 hover:scale-105 hover:shadow-sidebar/60">
+      <motion.div
+        animate={{ y: [0, -4, 0] }}
+        transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+        whileHover={{ scale: 1.05 }}
+        className="hidden md:flex fixed bottom-5 right-5 z-30 items-center gap-1 rounded-full bg-sidebar shadow-2xl shadow-sidebar/40 px-1.5 py-1.5">
         <button
           onClick={() => setTcoOpen(true)}
           className="flex items-center gap-1.5 px-3.5 py-2 rounded-full text-[12px] font-bold text-white hover:bg-white/15 transition-colors"
@@ -518,7 +523,7 @@ function FloatingQuickLinks() {
           </svg>
           Battlecard
         </button>
-      </div>
+      </motion.div>
 
       {/* TCO modal */}
       {tcoOpen && (
