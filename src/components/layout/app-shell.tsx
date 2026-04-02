@@ -293,22 +293,9 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         <main className="flex-1 overflow-y-auto pb-14 md:pb-0">
           {children}
           <footer className="border-t border-border py-6 px-4 text-center">
-            <div className="flex justify-center mb-3">
-              <svg width={40} height={40} viewBox="0 0 512 512" fill="none" className="opacity-50">
-                <rect width="512" height="512" rx="108" fill="#1a1633"/>
-                <rect x="24" y="24" width="464" height="464" rx="88" fill="#231f3e"/>
-                <rect x="126" y="168" width="260" height="210" rx="40" fill="#632CA6"/>
-                <circle cx="206" cy="268" r="30" fill="#1a1633"/>
-                <circle cx="306" cy="268" r="30" fill="#1a1633"/>
-                <circle cx="214" cy="260" r="10" fill="#e2dff0"/>
-                <circle cx="314" cy="260" r="10" fill="#e2dff0"/>
-                <rect x="196" y="320" width="120" height="16" rx="8" fill="#1a1633"/>
-                <rect x="246" y="112" width="20" height="56" rx="10" fill="#632CA6"/>
-                <circle cx="256" cy="104" r="22" fill="#7c3aed"/>
-                <circle cx="110" cy="258" r="18" fill="#7c3aed"/>
-                <circle cx="402" cy="258" r="18" fill="#7c3aed"/>
-              </svg>
-            </div>
+            <p className="text-[11px] text-muted-foreground/60 leading-relaxed max-w-md mx-auto mb-3">
+              This is an external demo for a PMM workshop I ran in March 2026. Everything you see is dummy data, and no selections will be saved. So please, play around!
+            </p>
             <div className="flex justify-center gap-2.5 mb-3">
               <a
                 href="https://www.linkedin.com/in/dariazhao/"
@@ -330,7 +317,9 @@ export function AppShell({ children }: { children: React.ReactNode }) {
               </a>
             </div>
             <div className="text-[11px] text-muted-foreground/60">
-              Made with ♥️ by Daria 👩🏻‍💻 © 2026. All rights reserved.
+              Made with ♥️ by Daria.
+              <br />
+              © 2026. All rights reserved.
             </div>
           </footer>
         </main>
