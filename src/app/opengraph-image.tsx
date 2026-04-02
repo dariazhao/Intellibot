@@ -19,109 +19,90 @@ export default async function OGImage() {
           height: '100%',
           display: 'flex',
           flexDirection: 'column',
-          background: 'linear-gradient(145deg, #1a1633 0%, #231f3e 50%, #1a1633 100%)',
+          background: 'linear-gradient(160deg, #130f28 0%, #1a1633 40%, #231f3e 100%)',
           fontFamily: 'system-ui, sans-serif',
           position: 'relative',
           overflow: 'hidden',
-          padding: '40px 48px',
         }}
       >
-        {/* Decorative gradient orbs */}
-        <div style={{ position: 'absolute', width: '500px', height: '500px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(108,92,231,0.15) 0%, transparent 70%)', top: '-150px', right: '50px', display: 'flex' }} />
-        <div style={{ position: 'absolute', width: '400px', height: '400px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(26,141,255,0.08) 0%, transparent 70%)', bottom: '-100px', left: '80px', display: 'flex' }} />
+        {/* Decorative orbs */}
+        <div style={{ position: 'absolute', width: '600px', height: '600px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(108,92,231,0.12) 0%, transparent 65%)', top: '-200px', right: '-50px', display: 'flex' }} />
+        <div style={{ position: 'absolute', width: '500px', height: '500px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(26,141,255,0.06) 0%, transparent 65%)', bottom: '-150px', left: '-50px', display: 'flex' }} />
 
-        {/* Top bar: Logo + Title */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '28px' }}>
-          {/* Robot icon as styled div */}
+        {/* Top bar with logo */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '24px 40px 16px' }}>
           <div style={{
-            width: '44px', height: '44px', borderRadius: '12px',
+            width: '32px', height: '32px', borderRadius: '8px',
             background: 'linear-gradient(135deg, #632CA6, #7c3aed)',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
-            boxShadow: '0 4px 16px rgba(99,44,166,0.3)',
           }}>
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2px' }}>
-              {/* Eyes */}
-              <div style={{ display: 'flex', gap: '6px' }}>
-                <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#e2dff0', display: 'flex' }} />
-                <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#e2dff0', display: 'flex' }} />
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1px' }}>
+              <div style={{ display: 'flex', gap: '4px' }}>
+                <div style={{ width: '5px', height: '5px', borderRadius: '50%', background: '#e2dff0', display: 'flex' }} />
+                <div style={{ width: '5px', height: '5px', borderRadius: '50%', background: '#e2dff0', display: 'flex' }} />
               </div>
-              {/* Mouth */}
-              <div style={{ width: '14px', height: '3px', borderRadius: '2px', background: '#e2dff0', opacity: 0.6, display: 'flex' }} />
+              <div style={{ width: '10px', height: '2px', borderRadius: '1px', background: '#e2dff0', opacity: 0.5, display: 'flex' }} />
             </div>
           </div>
-          <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <div style={{ fontSize: '28px', fontWeight: 800, color: '#e2dff0', letterSpacing: '-0.02em', lineHeight: 1, display: 'flex' }}>
-              Intellibot
-            </div>
-            <div style={{ fontSize: '13px', fontWeight: 500, color: '#8c86a5', letterSpacing: '0.02em', display: 'flex', marginTop: '2px' }}>
-              Self-Serve Deal Hub
-            </div>
-          </div>
+          <div style={{ fontSize: '18px', fontWeight: 700, color: '#8c86a5', display: 'flex' }}>Intellibot</div>
         </div>
 
-        {/* Dashboard screenshot */}
-        <div
-          style={{
-            flex: 1,
-            display: 'flex',
-            borderRadius: '12px',
-            border: '1px solid #3a3460',
-            background: 'rgba(35,31,62,0.95)',
-            boxShadow: '0 20px 60px rgba(0,0,0,0.3), 0 0 0 1px rgba(108,92,231,0.1)',
-            overflow: 'hidden',
-          }}
-        >
+        {/* Dashboard frame */}
+        <div style={{
+          flex: 1, margin: '0 32px',
+          display: 'flex',
+          borderRadius: '16px',
+          border: '1.5px solid #3a3460',
+          background: 'rgba(42,37,72,0.6)',
+          boxShadow: '0 24px 80px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.03)',
+          overflow: 'hidden',
+        }}>
           {/* Sidebar */}
           <div style={{
-            width: '38px', display: 'flex', flexDirection: 'column',
+            width: '52px', display: 'flex', flexDirection: 'column',
             alignItems: 'center', background: '#130f28',
-            borderRight: '1px solid #2a2548', paddingTop: '10px', gap: '5px',
+            borderRight: '1px solid #2a2548', paddingTop: '14px', gap: '6px',
           }}>
-            <div style={{ width: '20px', height: '20px', borderRadius: '5px', background: '#632CA6', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <div style={{ display: 'flex', gap: '3px' }}>
-                <div style={{ width: '4px', height: '4px', borderRadius: '50%', background: '#e2dff0', display: 'flex' }} />
-                <div style={{ width: '4px', height: '4px', borderRadius: '50%', background: '#e2dff0', display: 'flex' }} />
-              </div>
+            {/* Active icon */}
+            <div style={{
+              width: '32px', height: '32px', borderRadius: '6px',
+              background: '#231f3e', display: 'flex', alignItems: 'center', justifyContent: 'center',
+              borderLeft: '3px solid #632CA6',
+            }}>
+              <div style={{ width: '14px', height: '14px', borderRadius: '3px', border: '2px solid #e2dff0', display: 'flex' }} />
             </div>
-            <div style={{ width: '16px', height: '1px', background: '#2a2548', margin: '2px 0', display: 'flex' }} />
-            <div style={{ fontSize: '5px', fontWeight: 700, color: '#8c86a5', opacity: 0.4, display: 'flex' }}>WIN</div>
-            {[true, false, false].map((active, i) => (
-              <div key={i} style={{
-                width: '22px', height: '22px', borderRadius: '5px',
-                background: active ? '#231f3e' : 'transparent',
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-              }}>
-                <div style={{ width: '10px', height: '10px', borderRadius: '2px', border: `1.5px solid ${active ? '#e2dff0' : '#3a3460'}`, display: 'flex' }} />
+            <div style={{ width: '20px', height: '1px', background: '#2a2548', display: 'flex' }} />
+            {[0, 1, 2].map((i) => (
+              <div key={i} style={{ width: '32px', height: '32px', borderRadius: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <div style={{ width: '14px', height: '14px', borderRadius: '3px', border: '2px solid #3a3460', display: 'flex' }} />
               </div>
             ))}
-            <div style={{ fontSize: '5px', fontWeight: 700, color: '#8c86a5', opacity: 0.4, display: 'flex', marginTop: '2px' }}>INTEL</div>
-            {[false, false].map((_, i) => (
-              <div key={i} style={{
-                width: '22px', height: '22px', borderRadius: '5px', display: 'flex',
-                alignItems: 'center', justifyContent: 'center',
-              }}>
-                <div style={{ width: '10px', height: '10px', borderRadius: '2px', border: '1.5px solid #3a3460', display: 'flex' }} />
+            <div style={{ width: '20px', height: '1px', background: '#2a2548', display: 'flex' }} />
+            {[0, 1].map((i) => (
+              <div key={i} style={{ width: '32px', height: '32px', borderRadius: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <div style={{ width: '14px', height: '14px', borderRadius: '3px', border: '2px solid #3a3460', display: 'flex' }} />
               </div>
             ))}
           </div>
 
-          {/* Main content */}
+          {/* Content area */}
           <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
             {/* Top bar */}
             <div style={{
-              height: '28px', display: 'flex', alignItems: 'center',
-              padding: '0 12px', borderBottom: '1px solid #2a2548',
+              height: '38px', display: 'flex', alignItems: 'center',
+              padding: '0 20px', borderBottom: '1px solid #2a2548',
               justifyContent: 'space-between',
             }}>
-              <div style={{ fontSize: '8px', fontWeight: 700, color: '#e2dff0', display: 'flex' }}>Home</div>
-              <div style={{ display: 'flex', gap: '4px' }}>
-                <div style={{ fontSize: '6px', color: '#8c86a5', padding: '2px 6px', borderRadius: '3px', border: '1px solid #3a3460', display: 'flex' }}>Past 24h</div>
-                <div style={{ fontSize: '6px', fontWeight: 600, color: '#632CA6', padding: '2px 6px', borderRadius: '3px', background: 'rgba(108,92,231,0.15)', display: 'flex' }}>Learn</div>
+              <div style={{ fontSize: '13px', fontWeight: 700, color: '#e2dff0', display: 'flex' }}>Home</div>
+              <div style={{ display: 'flex', gap: '6px' }}>
+                <div style={{ width: '20px', height: '20px', borderRadius: '50%', background: '#2a2548', display: 'flex' }} />
+                <div style={{ width: '60px', height: '20px', borderRadius: '5px', background: 'rgba(23,184,190,0.15)', border: '1px solid rgba(23,184,190,0.3)', display: 'flex' }} />
+                <div style={{ width: '60px', height: '20px', borderRadius: '5px', background: 'rgba(108,92,231,0.15)', border: '1px solid rgba(108,92,231,0.3)', display: 'flex' }} />
               </div>
             </div>
 
             {/* 4 Metric cards */}
-            <div style={{ display: 'flex', gap: '5px', padding: '8px 10px 5px' }}>
+            <div style={{ display: 'flex', gap: '8px', padding: '14px 16px 8px' }}>
               {[
                 { label: 'Health', value: '74', color: '#2ca66c' },
                 { label: 'ARR', value: '$12.9M', color: '#632CA6' },
@@ -130,113 +111,96 @@ export default async function OGImage() {
               ].map((m) => (
                 <div key={m.label} style={{
                   flex: 1, display: 'flex', flexDirection: 'column',
-                  padding: '6px 7px', borderRadius: '5px',
+                  padding: '10px 12px', borderRadius: '8px',
                   background: '#231f3e', border: '1px solid #2a2548',
-                  borderTop: `2px solid ${m.color}`,
+                  borderTop: `3px solid ${m.color}`,
                 }}>
-                  <div style={{ fontSize: '6px', color: '#8c86a5', textTransform: 'uppercase', letterSpacing: '0.05em', fontWeight: 600, display: 'flex' }}>{m.label}</div>
-                  <div style={{ fontSize: '16px', fontWeight: 700, color: '#e2dff0', display: 'flex' }}>{m.value}</div>
-                  <div style={{ height: '2px', width: '50%', borderRadius: '1px', background: m.color, opacity: 0.4, marginTop: '2px', display: 'flex' }} />
+                  <div style={{ fontSize: '10px', color: '#8c86a5', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: 600, display: 'flex' }}>{m.label}</div>
+                  <div style={{ fontSize: '28px', fontWeight: 800, color: '#e2dff0', display: 'flex', marginTop: '2px' }}>{m.value}</div>
+                  <div style={{ height: '3px', width: '55%', borderRadius: '2px', background: m.color, opacity: 0.5, marginTop: '6px', display: 'flex' }} />
                 </div>
               ))}
             </div>
 
-            {/* Deal Assist + Accounts */}
-            <div style={{ display: 'flex', gap: '5px', padding: '3px 10px 10px', flex: 1, minHeight: 0 }}>
-              {/* Deal Assist */}
-              <div style={{
-                width: '180px', display: 'flex', flexDirection: 'column',
-                borderRadius: '5px', background: '#231f3e', border: '1px solid #2a2548',
-                borderTop: '2px solid #17b8be', padding: '7px',
-              }}>
-                <div style={{ fontSize: '6px', fontWeight: 600, color: '#8c86a5', textTransform: 'uppercase', letterSpacing: '0.05em', display: 'flex', marginBottom: '5px' }}>Quick Actions</div>
-                <div style={{ fontSize: '5px', fontWeight: 700, color: '#632CA6', opacity: 0.5, display: 'flex', marginBottom: '3px' }}>WIN THE DEAL</div>
-                {[
-                  { name: 'Battlecards', color: '#632CA6' },
-                  { name: 'TCO Analysis', color: '#17b8be' },
-                  { name: 'Head-to-Head', color: '#1a8dff' },
-                ].map((a) => (
-                  <div key={a.name} style={{ display: 'flex', alignItems: 'center', gap: '5px', marginBottom: '3px' }}>
-                    <div style={{ width: '6px', height: '6px', borderRadius: '2px', background: a.color, opacity: 0.5, display: 'flex' }} />
-                    <div style={{ fontSize: '7px', color: '#cdc8e0', display: 'flex' }}>{a.name}</div>
-                  </div>
-                ))}
-                <div style={{ fontSize: '5px', fontWeight: 700, color: '#1a8dff', opacity: 0.5, display: 'flex', marginTop: '3px', marginBottom: '3px' }}>KNOW THE MARKET</div>
-                {[
-                  { name: 'Competitor Intel', color: '#e5a00d' },
-                  { name: 'Event Stream', color: '#da545b' },
-                ].map((a) => (
-                  <div key={a.name} style={{ display: 'flex', alignItems: 'center', gap: '5px', marginBottom: '3px' }}>
-                    <div style={{ width: '6px', height: '6px', borderRadius: '2px', background: a.color, opacity: 0.5, display: 'flex' }} />
-                    <div style={{ fontSize: '7px', color: '#cdc8e0', display: 'flex' }}>{a.name}</div>
-                  </div>
-                ))}
-              </div>
-
-              {/* Account table */}
+            {/* Competitive Pulse + Win the Deal */}
+            <div style={{ display: 'flex', gap: '8px', padding: '4px 16px 14px', flex: 1, minHeight: 0 }}>
+              {/* Competitive Pulse chart */}
               <div style={{
                 flex: 1, display: 'flex', flexDirection: 'column',
-                borderRadius: '5px', background: '#231f3e', border: '1px solid #2a2548',
-                borderTop: '2px solid #632CA6', padding: '7px', gap: '3px',
+                borderRadius: '8px', background: '#231f3e', border: '1px solid #2a2548',
+                padding: '12px',
               }}>
-                <div style={{ fontSize: '6px', fontWeight: 600, color: '#8c86a5', textTransform: 'uppercase', letterSpacing: '0.05em', display: 'flex', marginBottom: '2px' }}>Account Portfolio</div>
-                {[
-                  { name: 'TitanForge Manufacturing', arr: '$3.1M', health: 91, color: '#2ca66c', stage: 'expansion' },
-                  { name: 'Meridian Financial Group', arr: '$2.4M', health: 82, color: '#2ca66c', stage: 'customer' },
-                  { name: 'Quantum Logistics Inc', arr: '$2.0M', health: 58, color: '#e5a00d', stage: 'customer' },
-                  { name: 'Apex Healthcare Systems', arr: '$1.8M', health: 65, color: '#e5a00d', stage: 'customer' },
-                  { name: 'Pinnacle Energy Corp', arr: '$1.5M', health: 73, color: '#e5a00d', stage: 'customer' },
-                ].map((a) => (
-                  <div key={a.name} style={{ display: 'flex', alignItems: 'center', gap: '6px', padding: '2px 0' }}>
-                    <div style={{ fontSize: '7px', fontWeight: 500, flex: 1, color: '#e2dff0', display: 'flex' }}>{a.name}</div>
-                    <div style={{ fontSize: '7px', fontWeight: 600, color: '#8c86a5', width: '36px', textAlign: 'right', display: 'flex', justifyContent: 'flex-end' }}>{a.arr}</div>
-                    <div style={{ width: '36px', height: '4px', borderRadius: '2px', background: '#2a2548', display: 'flex', overflow: 'hidden' }}>
-                      <div style={{ width: `${a.health}%`, height: '100%', borderRadius: '2px', background: a.color, display: 'flex' }} />
+                <div style={{ fontSize: '10px', fontWeight: 600, color: '#8c86a5', textTransform: 'uppercase', letterSpacing: '0.08em', display: 'flex', marginBottom: '10px' }}>Competitive Pulse</div>
+                <div style={{ flex: 1, display: 'flex', alignItems: 'flex-end', gap: '5px' }}>
+                  {[32, 48, 38, 62, 42, 58, 78, 45, 55, 40, 70, 52, 65, 48, 72, 50].map((h, i) => (
+                    <div
+                      key={i}
+                      style={{
+                        flex: 1,
+                        height: `${h}%`,
+                        borderRadius: '2px 2px 0 0',
+                        background: i === 6 || i === 14 ? '#632CA6' : 'rgba(108,92,231,0.25)',
+                        display: 'flex',
+                      }}
+                    />
+                  ))}
+                </div>
+              </div>
+
+              {/* Win the Deal panel */}
+              <div style={{
+                flex: 1, display: 'flex', flexDirection: 'column',
+                borderRadius: '8px', background: '#231f3e', border: '1px solid #2a2548',
+                padding: '12px',
+              }}>
+                <div style={{ fontSize: '10px', fontWeight: 600, color: '#8c86a5', textTransform: 'uppercase', letterSpacing: '0.08em', display: 'flex', marginBottom: '12px' }}>Win the Deal</div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                  {[
+                    { name: 'Battlecards', color: '#632CA6' },
+                    { name: 'TCO Analysis', color: '#17b8be' },
+                    { name: 'Head-to-Head', color: '#1a8dff' },
+                    { name: 'Competitor Intel', color: '#e5a00d' },
+                  ].map((a) => (
+                    <div key={a.name} style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                      <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: a.color, opacity: 0.7, display: 'flex' }} />
+                      <div style={{ fontSize: '13px', fontWeight: 500, color: '#cdc8e0', flex: 1, display: 'flex' }}>{a.name}</div>
+                      <div style={{ fontSize: '12px', color: '#3a3460', display: 'flex' }}>›</div>
                     </div>
-                    <div style={{ fontSize: '7px', fontWeight: 600, color: a.color, width: '16px', textAlign: 'right', display: 'flex', justifyContent: 'flex-end' }}>{a.health}</div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Bottom: Tagline + Author */}
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: '24px' }}>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-            <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
-              <div style={{
-                fontSize: '12px', fontWeight: 700, textTransform: 'uppercase',
-                letterSpacing: '0.08em', color: '#632CA6',
-                padding: '3px 10px', borderRadius: '4px',
-                background: 'rgba(108,92,231,0.12)',
-                display: 'flex',
-              }}>
-                Win the Deal
-              </div>
-              <div style={{
-                fontSize: '12px', fontWeight: 700, textTransform: 'uppercase',
-                letterSpacing: '0.08em', color: '#1a8dff',
-                padding: '3px 10px', borderRadius: '4px',
-                background: 'rgba(26,141,255,0.12)',
-                display: 'flex',
-              }}>
-                Know the Market
-              </div>
+        {/* Bottom: Two pillars + Author */}
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px 40px 20px' }}>
+          <div style={{ display: 'flex', gap: '12px' }}>
+            <div style={{
+              display: 'flex', flexDirection: 'column', alignItems: 'center',
+              padding: '8px 28px', borderRadius: '10px',
+              background: 'rgba(108,92,231,0.08)', border: '1px solid rgba(108,92,231,0.15)',
+            }}>
+              <div style={{ fontSize: '13px', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.1em', color: '#632CA6', display: 'flex' }}>Win the Deal</div>
+              <div style={{ fontSize: '11px', color: '#8c86a5', display: 'flex', marginTop: '2px' }}>Battlecards, TCO, Head-to-Head</div>
+            </div>
+            <div style={{
+              display: 'flex', flexDirection: 'column', alignItems: 'center',
+              padding: '8px 28px', borderRadius: '10px',
+              background: 'rgba(26,141,255,0.08)', border: '1px solid rgba(26,141,255,0.15)',
+            }}>
+              <div style={{ fontSize: '13px', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.1em', color: '#1a8dff', display: 'flex' }}>Know the Market</div>
+              <div style={{ fontSize: '11px', color: '#8c86a5', display: 'flex', marginTop: '2px' }}>Competitor Intel, Event Stream</div>
             </div>
           </div>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
             <img
               src={headshotBase64}
-              width={30}
-              height={30}
+              width={36}
+              height={36}
               style={{ borderRadius: '50%', border: '2px solid rgba(108,92,231,0.3)' }}
             />
-            <div style={{ display: 'flex', flexDirection: 'column' }}>
-              <div style={{ fontSize: '12px', fontWeight: 600, color: '#e2dff0', display: 'flex' }}>Daria Zhao</div>
-              <div style={{ fontSize: '10px', color: '#8c86a5', display: 'flex' }}>Director of AI PMM at Yext</div>
-            </div>
           </div>
         </div>
       </div>
