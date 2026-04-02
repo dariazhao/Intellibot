@@ -272,7 +272,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             </div>
             <GlobalSearch />
             <NotificationBell />
-            <RetakeTourButton onClick={openTour} />
+            <LearnMoreButton onTour={openTour} />
             <TcoButton />
             <BattlecardButton />
           </div>
@@ -307,19 +307,93 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   );
 }
 
-function RetakeTourButton({ onClick }: { onClick: () => void }) {
+function LearnMoreButton({ onTour }: { onTour: () => void }) {
+  const [open, setOpen] = useState(false);
+  const router = useRouter();
+
+  const options = [
+    {
+      label: 'Take the Tour',
+      desc: 'Quick walkthrough of the platform',
+      icon: (
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <circle cx="12" cy="12" r="10" />
+          <polygon points="10 8 16 12 10 16 10 8" />
+        </svg>
+      ),
+      action: () => { setOpen(false); onTour(); },
+    },
+    {
+      label: 'How Battlecards Work',
+      desc: 'Why instant beats static in fast markets',
+      icon: (
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+        </svg>
+      ),
+      action: () => { setOpen(false); router.push('/battlecards/philosophy'); },
+    },
+    {
+      label: 'How TCO Analysis Works',
+      desc: 'The methodology behind the numbers',
+      icon: (
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="4" y="2" width="16" height="20" rx="2" />
+          <line x1="8" y1="6" x2="16" y2="6" />
+          <line x1="8" y1="10" x2="12" y2="10" />
+          <line x1="8" y1="14" x2="16" y2="14" />
+        </svg>
+      ),
+      action: () => { setOpen(false); router.push('/tco/philosophy'); },
+    },
+  ];
+
   return (
-    <button
-      onClick={onClick}
-      title="Retake Welcome Tour"
-      className="flex items-center gap-1.5 text-[12px] text-muted-foreground hover:text-foreground transition-colors px-2 py-1 rounded hover:bg-accent border border-transparent hover:border-border"
-    >
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M21.174 6.812a1 1 0 00-3.986-3.987L3.842 16.174a2 2 0 00-.5.83l-1.321 4.352a.5.5 0 00.623.622l4.353-1.32a2 2 0 00.83-.497z" />
-        <path d="M15 5l4 4" />
-      </svg>
-      <span className="hidden lg:inline">Retake Tour</span>
-    </button>
+    <>
+      <button
+        onClick={() => setOpen(true)}
+        title="Learn more"
+        className="flex items-center gap-1.5 text-[12px] text-muted-foreground hover:text-foreground transition-colors px-2 py-1 rounded hover:bg-accent border border-transparent hover:border-border"
+      >
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <circle cx="12" cy="12" r="10" />
+          <path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3" />
+          <line x1="12" y1="17" x2="12.01" y2="17" />
+        </svg>
+        <span className="hidden lg:inline">Learn</span>
+      </button>
+      {open && (
+        <div className="fixed inset-0 z-50 flex items-start justify-center pt-[20vh]" onClick={() => setOpen(false)}>
+          <div className="absolute inset-0 bg-black/60" />
+          <div
+            className="relative w-full max-w-sm mx-4 bg-popover border border-border rounded-lg shadow-2xl overflow-hidden"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="px-3 py-2 border-b border-border text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
+              Explore Intellibot
+            </div>
+            <div className="py-1">
+              {options.map((opt) => (
+                <button
+                  key={opt.label}
+                  onClick={opt.action}
+                  className="w-full flex items-center gap-3 px-3 py-2.5 hover:bg-accent transition-colors text-left"
+                >
+                  <span className="text-muted-foreground">{opt.icon}</span>
+                  <div className="flex-1 min-w-0">
+                    <div className="text-[13px] font-medium">{opt.label}</div>
+                    <div className="text-[11px] text-muted-foreground">{opt.desc}</div>
+                  </div>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-muted-foreground shrink-0">
+                    <polyline points="9 18 15 12 9 6" />
+                  </svg>
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+    </>
   );
 }
 
