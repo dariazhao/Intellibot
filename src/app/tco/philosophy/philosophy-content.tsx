@@ -39,15 +39,21 @@ export function PhilosophyContent() {
         </div>
       </S>
 
-      {/* BLUF */}
+      {/* My Take */}
       <S>
-        <div className="rounded-xl border-2 border-primary/20 bg-primary/5 px-5 py-4">
-          <div className="text-xs font-bold uppercase tracking-wider text-primary mb-2">Bottom line up front</div>
-          <p className="text-sm leading-relaxed">
+        <div className="rounded-xl border-2 border-primary/20 bg-primary/5 px-5 py-5">
+          <div className="text-xs font-bold uppercase tracking-wider text-primary mb-3">My take</div>
+          <p className="text-sm leading-relaxed mb-4">
             TCO analysis shifts competitive deals from "who has the lowest sticker price" to "who costs less to actually own."
             Our model uses bottom-up cost modeling across 11 categories and 4 lifecycle phases. Every number is editable,
             every assumption is named, and the methodology creates the advantage, not cherry-picked inputs.
           </p>
+          <div className="flex items-center gap-2.5 pt-2 border-t border-primary/10">
+            <div className="w-8 h-8 rounded-full overflow-hidden border border-primary/30 shrink-0">
+              <img src="/daria-headshot.jpg" alt="Daria" className="w-full h-full object-cover" />
+            </div>
+            <span className="text-xs text-muted-foreground italic">- Daria</span>
+          </div>
         </div>
       </S>
 
@@ -220,33 +226,6 @@ export function PhilosophyContent() {
         </div>
       </S>
 
-      {/* Author */}
-      <S>
-        <div className="border-t border-border pt-8">
-          <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4">
-            <div className="w-14 h-14 rounded-full overflow-hidden border-2 border-primary/30 shadow-md shrink-0">
-              <img src="/daria-headshot.jpg" alt="Daria" className="w-full h-full object-cover" />
-            </div>
-            <div className="text-center sm:text-left">
-              <div className="text-sm font-semibold">Daria</div>
-              <p className="text-xs text-muted-foreground mt-1 max-w-sm leading-relaxed">
-                Built Intellibot to give enterprise reps self-serve competitive intelligence.
-                This TCO methodology is based on real-world deal patterns from sales-led AI and software companies.
-              </p>
-              <div className="flex flex-wrap gap-2.5 mt-3 justify-center sm:justify-start">
-                <a href="https://www.linkedin.com/in/dariazhao/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-[#0A66C2]/10 text-[#0A66C2] hover:bg-[#0A66C2]/20 border border-[#0A66C2]/20 transition-colors">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" /></svg>
-                  Get in touch
-                </a>
-                <a href="https://luma.com/calendar/cal-y7Q8MCsPwKeiJ8r" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-primary/10 text-primary hover:bg-primary/15 border border-primary/20 transition-colors">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" /><line x1="16" y1="2" x2="16" y2="6" /><line x1="8" y1="2" x2="8" y2="6" /><line x1="3" y1="10" x2="21" y2="10" /></svg>
-                  Sign up for future events
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </S>
     </div>
   );
 }

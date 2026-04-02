@@ -19,7 +19,7 @@ const NAV_ITEMS = [
   { href: '/tco', label: 'TCO Analysis', icon: 'calculator', group: 'win' },
   { href: '/compare', label: 'Head-to-Head', icon: 'compare', group: 'win' },
   { href: '/competitors', label: 'Competitor Intel', icon: 'sword', group: 'intel' },
-  { href: '/events', label: 'Signals', icon: 'stream', group: 'intel' },
+  { href: '/events', label: 'Event Stream', icon: 'stream', group: 'intel' },
   { href: '/settings', label: 'Settings', icon: 'gear', group: 'system' },
 ] as const;
 
@@ -143,7 +143,7 @@ const PAGE_TITLES: Record<string, string> = {
   '/tco': 'TCO Analysis',
   '/compare': 'Head-to-Head',
   '/competitors': 'Competitor Intel',
-  '/events': 'Signals',
+  '/events': 'Event Stream',
   '/settings': 'Settings',
 };
 
@@ -218,7 +218,20 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         {/* Logo */}
         <div className="py-3 border-b border-sidebar-border w-full flex justify-center">
           <Link href="/" className="flex items-center justify-center w-9 h-9">
-            <img src="/llama.png" alt="Intellibot" width={28} height={28} className="rounded-sm" />
+            <svg width={24} height={24} viewBox="0 0 512 512" fill="none">
+              <rect width="512" height="512" rx="108" fill="#1a1633"/>
+              <rect x="24" y="24" width="464" height="464" rx="88" fill="#231f3e"/>
+              <rect x="126" y="168" width="260" height="210" rx="40" fill="#632CA6"/>
+              <circle cx="206" cy="268" r="30" fill="#1a1633"/>
+              <circle cx="306" cy="268" r="30" fill="#1a1633"/>
+              <circle cx="214" cy="260" r="10" fill="#e2dff0"/>
+              <circle cx="314" cy="260" r="10" fill="#e2dff0"/>
+              <rect x="196" y="320" width="120" height="16" rx="8" fill="#1a1633"/>
+              <rect x="246" y="112" width="20" height="56" rx="10" fill="#632CA6"/>
+              <circle cx="256" cy="104" r="22" fill="#7c3aed"/>
+              <circle cx="110" cy="258" r="18" fill="#7c3aed"/>
+              <circle cx="402" cy="258" r="18" fill="#7c3aed"/>
+            </svg>
           </Link>
         </div>
 
@@ -273,34 +286,57 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             <GlobalSearch />
             <NotificationBell />
             <LearnMoreButton onTour={openTour} />
-            <TcoButton />
-            <BattlecardButton />
           </div>
         </header>
 
         {/* Content */}
         <main className="flex-1 overflow-y-auto pb-14 md:pb-0">
           {children}
-          <footer className="border-t border-border py-5 px-4 text-center">
-            <div className="flex justify-center mb-2">
-              <img src="/llama.png" alt="Llama" width={56} height={56} className="opacity-60" />
+          <footer className="border-t border-border py-6 px-4 text-center">
+            <div className="flex justify-center mb-3">
+              <svg width={40} height={40} viewBox="0 0 512 512" fill="none" className="opacity-50">
+                <rect width="512" height="512" rx="108" fill="#1a1633"/>
+                <rect x="24" y="24" width="464" height="464" rx="88" fill="#231f3e"/>
+                <rect x="126" y="168" width="260" height="210" rx="40" fill="#632CA6"/>
+                <circle cx="206" cy="268" r="30" fill="#1a1633"/>
+                <circle cx="306" cy="268" r="30" fill="#1a1633"/>
+                <circle cx="214" cy="260" r="10" fill="#e2dff0"/>
+                <circle cx="314" cy="260" r="10" fill="#e2dff0"/>
+                <rect x="196" y="320" width="120" height="16" rx="8" fill="#1a1633"/>
+                <rect x="246" y="112" width="20" height="56" rx="10" fill="#632CA6"/>
+                <circle cx="256" cy="104" r="22" fill="#7c3aed"/>
+                <circle cx="110" cy="258" r="18" fill="#7c3aed"/>
+                <circle cx="402" cy="258" r="18" fill="#7c3aed"/>
+              </svg>
             </div>
-            <div className="text-[11px] text-muted-foreground/60 leading-relaxed">
-              Made with ♥️ by Daria.
-              <br />
-              Sign up for future events{' '}
+            <div className="flex justify-center gap-2.5 mb-3">
               <a
-                href="https://luma.com/calendar/cal-y7Q8MCsPwKeiJ8r?period=past"
+                href="https://www.linkedin.com/in/dariazhao/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="underline hover:text-foreground transition-colors"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-medium bg-[#0A66C2]/10 text-[#0A66C2] hover:bg-[#0A66C2]/20 border border-[#0A66C2]/20 transition-colors"
               >
-                here
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" /></svg>
+                Get in touch
               </a>
-              . © 2026. All rights reserved.
+              <a
+                href="https://luma.com/calendar/cal-y7Q8MCsPwKeiJ8r"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-medium bg-primary/10 text-primary hover:bg-primary/15 border border-primary/20 transition-colors"
+              >
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" /><line x1="16" y1="2" x2="16" y2="6" /><line x1="8" y1="2" x2="8" y2="6" /><line x1="3" y1="10" x2="21" y2="10" /></svg>
+                Sign up for future events
+              </a>
+            </div>
+            <div className="text-[11px] text-muted-foreground/60">
+              Made with ♥️ by Daria 👩🏻‍💻 © 2026. All rights reserved.
             </div>
           </footer>
         </main>
+
+        {/* Floating quick-links */}
+        <FloatingQuickLinks />
       </div>
     </div>
     </TimeRangeProvider>
@@ -442,8 +478,10 @@ function TimeRangeSelector() {
   );
 }
 
-function TcoButton() {
-  const [open, setOpen] = useState(false);
+function FloatingQuickLinks() {
+  const [tcoOpen, setTcoOpen] = useState(false);
+  const [bcOpen, setBcOpen] = useState(false);
+  const [accounts, setAccounts] = useState<Array<{ slug: string; name: string; logo: string }>>([]);
   const router = useRouter();
 
   const models = [
@@ -453,110 +491,80 @@ function TcoButton() {
     { value: 'flat_rate', label: 'Flat-Rate', desc: 'Single annual fee regardless of usage', icon: '📋' },
   ];
 
-  return (
-    <>
-      <button
-        onClick={() => setOpen(true)}
-        className="flex items-center gap-1.5 text-[12px] font-medium text-dd-teal hover:text-foreground transition-colors px-2 py-1 rounded bg-dd-teal/10 hover:bg-dd-teal/20 border border-dd-teal/30"
-      >
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <rect x="4" y="2" width="16" height="20" rx="2" />
-          <line x1="8" y1="6" x2="16" y2="6" />
-          <line x1="8" y1="10" x2="12" y2="10" />
-          <line x1="8" y1="14" x2="16" y2="14" />
-          <line x1="8" y1="18" x2="12" y2="18" />
-        </svg>
-        <span className="hidden sm:inline">TCO Analysis</span>
-      </button>
-      {open && (
-        <div className="fixed inset-0 z-50 flex items-start justify-center pt-[20vh]" onClick={() => setOpen(false)}>
-          <div className="absolute inset-0 bg-black/60" />
-          <div
-            className="relative w-full max-w-sm mx-4 bg-popover border border-border rounded-lg shadow-2xl overflow-hidden"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="px-3 py-2 border-b border-border text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
-              Select pricing model
-            </div>
-            <div className="py-1">
-              {models.map((m) => (
-                <button
-                  key={m.value}
-                  onClick={() => {
-                    setOpen(false);
-                    router.push(`/tco?model=${m.value}`);
-                  }}
-                  className="w-full flex items-center gap-3 px-3 py-2.5 hover:bg-accent transition-colors text-left"
-                >
-                  <span className="text-base">{m.icon}</span>
-                  <div className="flex-1 min-w-0">
-                    <div className="text-[13px] font-medium">{m.label}</div>
-                    <div className="text-[11px] text-muted-foreground">{m.desc}</div>
-                  </div>
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-muted-foreground shrink-0">
-                    <polyline points="9 18 15 12 9 6" />
-                  </svg>
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
-      )}
-    </>
-  );
-}
-
-function BattlecardButton() {
-  const [open, setOpen] = useState(false);
-  const [accounts, setAccounts] = useState<Array<{ slug: string; name: string; logo: string }>>([]);
-  const router = useRouter();
-
   useEffect(() => {
-    if (open && accounts.length === 0) {
+    if (bcOpen && accounts.length === 0) {
       import('@/lib/dal').then(({ getAccounts }) =>
         getAccounts().then((data) =>
           setAccounts(data.map((a) => ({ slug: a.slug, name: a.name, logo: a.logo })))
         )
       );
     }
-  }, [open, accounts.length]);
+  }, [bcOpen, accounts.length]);
 
   return (
     <>
-      <button
-        onClick={() => setOpen(true)}
-        className="flex items-center gap-1.5 text-[12px] font-medium text-primary hover:text-primary-foreground transition-colors px-2 py-1 rounded bg-primary/15 hover:bg-primary/25 border border-primary/30"
-      >
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
-        </svg>
-        <span className="hidden sm:inline">Battlecard</span>
-      </button>
-      {open && (
-        <div className="fixed inset-0 z-50 flex items-start justify-center pt-[20vh]" onClick={() => setOpen(false)}>
+      {/* Floating pill - bottom right */}
+      <div className="hidden md:flex fixed bottom-5 right-5 z-30 items-center gap-1.5 rounded-full bg-card/95 backdrop-blur border border-border shadow-lg px-1.5 py-1.5">
+        <button
+          onClick={() => setTcoOpen(true)}
+          className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-medium text-dd-teal hover:bg-dd-teal/10 transition-colors"
+          title="Quick TCO Analysis"
+        >
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <rect x="4" y="2" width="16" height="20" rx="2" />
+            <line x1="8" y1="6" x2="16" y2="6" />
+            <line x1="8" y1="10" x2="12" y2="10" />
+            <line x1="8" y1="14" x2="16" y2="14" />
+          </svg>
+          TCO
+        </button>
+        <div className="w-px h-4 bg-border" />
+        <button
+          onClick={() => setBcOpen(true)}
+          className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-medium text-primary hover:bg-primary/10 transition-colors"
+          title="Quick Battlecard"
+        >
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+          </svg>
+          Battlecard
+        </button>
+      </div>
+
+      {/* TCO modal */}
+      {tcoOpen && (
+        <div className="fixed inset-0 z-50 flex items-start justify-center pt-[20vh]" onClick={() => setTcoOpen(false)}>
           <div className="absolute inset-0 bg-black/60" />
-          <div
-            className="relative w-full max-w-sm mx-4 bg-popover border border-border rounded-lg shadow-2xl overflow-hidden"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="px-3 py-2 border-b border-border text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
-              Select account
+          <div className="relative w-full max-w-sm mx-4 bg-popover border border-border rounded-lg shadow-2xl overflow-hidden" onClick={(e) => e.stopPropagation()}>
+            <div className="px-3 py-2 border-b border-border text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">Select pricing model</div>
+            <div className="py-1">
+              {models.map((m) => (
+                <button key={m.value} onClick={() => { setTcoOpen(false); router.push(`/tco?model=${m.value}`); }} className="w-full flex items-center gap-3 px-3 py-2.5 hover:bg-accent transition-colors text-left">
+                  <span className="text-base">{m.icon}</span>
+                  <div className="flex-1 min-w-0">
+                    <div className="text-[13px] font-medium">{m.label}</div>
+                    <div className="text-[11px] text-muted-foreground">{m.desc}</div>
+                  </div>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-muted-foreground shrink-0"><polyline points="9 18 15 12 9 6" /></svg>
+                </button>
+              ))}
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* Battlecard modal */}
+      {bcOpen && (
+        <div className="fixed inset-0 z-50 flex items-start justify-center pt-[20vh]" onClick={() => setBcOpen(false)}>
+          <div className="absolute inset-0 bg-black/60" />
+          <div className="relative w-full max-w-sm mx-4 bg-popover border border-border rounded-lg shadow-2xl overflow-hidden" onClick={(e) => e.stopPropagation()}>
+            <div className="px-3 py-2 border-b border-border text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">Select account</div>
             <div className="max-h-64 overflow-y-auto">
               {accounts.map((a) => (
-                <button
-                  key={a.slug}
-                  onClick={() => {
-                    setOpen(false);
-                    router.push(`/account/${a.slug}/battlecard`);
-                  }}
-                  className="w-full flex items-center gap-2.5 px-3 py-2.5 text-[13px] hover:bg-accent transition-colors text-left"
-                >
+                <button key={a.slug} onClick={() => { setBcOpen(false); router.push(`/account/${a.slug}/battlecard`); }} className="w-full flex items-center gap-2.5 px-3 py-2.5 text-[13px] hover:bg-accent transition-colors text-left">
                   <span>{a.logo}</span>
                   <span className="font-medium">{a.name}</span>
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="ml-auto text-muted-foreground">
-                    <polyline points="9 18 15 12 9 6" />
-                  </svg>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="ml-auto text-muted-foreground"><polyline points="9 18 15 12 9 6" /></svg>
                 </button>
               ))}
             </div>

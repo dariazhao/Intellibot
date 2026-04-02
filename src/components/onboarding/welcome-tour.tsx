@@ -330,42 +330,42 @@ const TOUR_CARDS: TourCard[] = [
   },
   {
     id: 'dashboard',
-    headline: 'Home',
-    body: 'Your home base. Intellibot helps you do two things: Win the Deal and Know the Market. Home shows portfolio health, ARR, active threats, win rate, and quick-launch actions across both.',
+    headline: 'Home: Your Comp Intel Hub',
+    body: "Every rep's home base for self-serve comp intel. Portfolio health, ARR, active threats, win rate, and quick-launch actions to Win the Deal or Know the Market.",
     illustration: <DashboardIllustration />,
   },
   {
     id: 'battlecards',
-    headline: 'Battlecards',
+    headline: 'Battlecards: Always Fresh, Never Generic',
     body: 'AI-generated competitive talking points tailored to any account. Objection handlers, differentiators, and talk tracks ready for your next call.',
     illustration: <BattlecardIllustration />,
     group: 'win',
   },
   {
     id: 'tco',
-    headline: 'TCO Analysis',
+    headline: 'TCO Analysis: Win on the Numbers',
     body: 'Build a Total Cost of Ownership comparison in minutes. Pick your pricing model, select competitors, and get a full AE + SE narrative to present.',
     illustration: <TcoIllustration />,
     group: 'win',
   },
   {
     id: 'compare',
-    headline: 'Head-to-Head',
+    headline: 'Head-to-Head: Stack Up Against Rivals',
     body: 'Go head-to-head against the competitors in your deal. Capability matrix, strength/weakness breakdowns, and market momentum to sharpen your positioning.',
     illustration: <CompareIllustration />,
     group: 'win',
   },
   {
     id: 'competitors',
-    headline: 'Competitor Intel',
+    headline: 'Competitor Intel: Know Every Rival',
     body: 'Deep profiles on every competitor: threat assessments, market positioning, recent news, and win/loss trends. Click any rival to dive deeper.',
     illustration: <CompetitorIllustration />,
     group: 'intel',
   },
   {
     id: 'events',
-    headline: 'Signals',
-    body: 'Real-time competitive intelligence: pricing changes, G2 reviews, deal mentions, and market moves surfaced as they happen.',
+    headline: 'Event Stream: Real-Time Pulse',
+    body: 'Live competitive intelligence: pricing changes, G2 reviews, deal mentions, and market moves surfaced as they happen.',
     illustration: <EventStreamIllustration />,
     group: 'intel',
   },
@@ -478,7 +478,7 @@ export function WelcomeTour({ forceOpen = false, onClose }: WelcomeTourProps) {
                 </div>
                 <div className="flex-1 rounded-lg px-3 py-2.5 border text-center" style={{ borderColor: '#1a8dff20', backgroundColor: '#1a8dff08' }}>
                   <div className="text-[10px] font-bold uppercase tracking-wider mb-0.5" style={{ color: '#1a8dff' }}>Know the Market</div>
-                  <div className="text-[10px] text-muted-foreground">Competitor Intel, Signals</div>
+                  <div className="text-[10px] text-muted-foreground">Competitor Intel, Event Stream</div>
                 </div>
               </div>
 
@@ -487,12 +487,13 @@ export function WelcomeTour({ forceOpen = false, onClose }: WelcomeTourProps) {
                 <div className="w-9 h-9 rounded-full overflow-hidden border-2 border-primary/30 shadow-sm shrink-0">
                   <img
                     src="/daria-headshot.jpg"
-                    alt="Daria"
+                    alt="Daria Zhao"
                     className="w-full h-full object-cover"
                   />
                 </div>
-                <div className="text-xs text-muted-foreground/70 italic">
-                  — Daria
+                <div className="text-left">
+                  <div className="text-xs font-medium">Daria Zhao</div>
+                  <div className="text-[10px] text-muted-foreground/70">Director of AI PMM at Yext</div>
                 </div>
               </div>
             </div>

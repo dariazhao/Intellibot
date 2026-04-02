@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { getAccounts, getCompetitors } from '@/lib/dal';
+import { HowItWorksLink } from './how-it-works-link';
 
 export default async function BattlecardsPage() {
   const [accounts, competitors] = await Promise.all([
@@ -79,6 +80,8 @@ export default async function BattlecardsPage() {
           ))}
         </div>
       </div>
+
+      <HowItWorksLink />
     </div>
   );
 }

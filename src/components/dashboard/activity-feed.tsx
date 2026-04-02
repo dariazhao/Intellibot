@@ -40,7 +40,7 @@ export function ActivityFeed({ activities }: ActivityFeedProps) {
   return (
     <div className="widget-card widget-blue">
       <div className="widget-card-header">
-        <span>Recent Activity</span>
+        <span>Event Stream</span>
         <span className="text-[10px] font-normal normal-case tracking-normal text-muted-foreground">
           {totalCount} events
         </span>

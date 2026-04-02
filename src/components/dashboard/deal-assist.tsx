@@ -64,7 +64,7 @@ export function DealAssist({ competitors, accountCount }: DealAssistProps) {
     },
     {
       href: '/events',
-      label: 'Signals',
+      label: 'Event Stream',
       desc: 'Real-time market intelligence',
       stat: 'Live feed',
       color: '#da545b',
