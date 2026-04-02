@@ -389,7 +389,7 @@ function LearnMoreButton({ onTour }: { onTour: () => void }) {
       <button
         onClick={() => setOpen(true)}
         title="Learn more"
-        className="flex items-center gap-1.5 text-[12px] text-muted-foreground hover:text-foreground transition-colors px-2 py-1 rounded hover:bg-accent border border-transparent hover:border-border"
+        className="flex items-center gap-1.5 text-[12px] font-medium text-primary hover:text-primary/80 transition-colors px-2.5 py-1 rounded-md bg-primary/10 hover:bg-primary/15 border border-primary/25"
       >
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <circle cx="12" cy="12" r="10" />
@@ -504,7 +504,7 @@ function FloatingQuickLinks() {
   return (
     <>
       {/* Floating pill - bottom right */}
-      <div className="hidden md:flex fixed bottom-5 right-5 z-30 items-center gap-1.5 rounded-full bg-card/95 backdrop-blur border border-border shadow-lg px-1.5 py-1.5">
+      <div className="hidden md:flex fixed bottom-5 right-5 z-30 items-center gap-1.5 rounded-full bg-card backdrop-blur border-2 border-border shadow-xl px-1.5 py-1.5">
         <button
           onClick={() => setTcoOpen(true)}
           className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-medium text-dd-teal hover:bg-dd-teal/10 transition-colors"
