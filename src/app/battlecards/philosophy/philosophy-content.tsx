@@ -38,7 +38,7 @@ export function BattlecardPhilosophyContent() {
         <div className="rounded-xl border-2 border-primary/20 bg-primary/5 px-6 py-5">
           <div className="text-xs font-bold uppercase tracking-wider text-primary mb-3">My take</div>
           <p className="text-[15px] leading-relaxed mb-4">
-            In AI-GTM, competitors ship weekly and the market shifts monthly. A battlecard made on Monday is outdated by Friday. Instant battlecards generate fresh, deal-specific competitive intel from live data sources on demand. This eliminates the maintenance burden, scales the PMM function, and ensures every rep gets the same quality of competitive support regardless of deal size.
+            In AI-native GTM, we ship daily, competitors move at the same pace, the market evolves rapidly, and customers demand the best. A battlecard made on Monday is outdated by Friday. Instant battlecards generate fresh, deal-specific competitive intel from live data sources on demand. This eliminates the maintenance burden, scales the PMM function, and ensures every rep gets the same quality of competitive support regardless of deal size.
           </p>
           <div className="flex items-center justify-end gap-2.5">
             <div className="w-9 h-9 rounded-full overflow-hidden border border-primary/30 shrink-0">
