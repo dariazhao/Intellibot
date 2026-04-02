@@ -330,8 +330,8 @@ const TOUR_CARDS: TourCard[] = [
   },
   {
     id: 'dashboard',
-    headline: 'Intellibot Field HQ',
-    body: 'Your home base. Intellibot helps you do two things: Win the Deal and Know the Market. Field HQ shows portfolio health, ARR, active threats, win rate, and quick-launch actions across both.',
+    headline: 'Home',
+    body: 'Your home base. Intellibot helps you do two things: Win the Deal and Know the Market. Home shows portfolio health, ARR, active threats, win rate, and quick-launch actions across both.',
     illustration: <DashboardIllustration />,
   },
   {

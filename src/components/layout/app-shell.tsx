@@ -14,7 +14,7 @@ const NAV_GROUPS: Record<string, string> = {
 };
 
 const NAV_ITEMS = [
-  { href: '/', label: 'Intellibot Field HQ', icon: 'home' },
+  { href: '/', label: 'Home', icon: 'home' },
   { href: '/battlecards', label: 'Battlecards', icon: 'bolt', group: 'win' },
   { href: '/tco', label: 'TCO Analysis', icon: 'calculator', group: 'win' },
   { href: '/compare', label: 'Head-to-Head', icon: 'compare', group: 'win' },
@@ -138,7 +138,7 @@ function MobileNavLink({ href, label, icon }: { href: string; label: string; ico
 }
 
 const PAGE_TITLES: Record<string, string> = {
-  '/': 'Intellibot Field HQ',
+  '/': 'Home',
   '/battlecards': 'Battlecards',
   '/tco': 'TCO Analysis',
   '/compare': 'Head-to-Head',
@@ -162,7 +162,7 @@ function Breadcrumbs() {
   if (pathname === '/') {
     return (
       <div className="flex items-center gap-2 text-[13px]">
-        <span className="font-semibold text-foreground">Intellibot Field HQ</span>
+        <span className="font-semibold text-foreground">Home</span>
         <span className="text-muted-foreground text-xs hidden sm:inline">{TIME_RANGE_LABELS[range]}</span>
       </div>
     );
