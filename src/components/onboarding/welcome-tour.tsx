@@ -487,12 +487,12 @@ export function WelcomeTour({ forceOpen = false, onClose }: WelcomeTourProps) {
                 <div className="w-9 h-9 rounded-full overflow-hidden border-2 border-primary/30 shadow-sm shrink-0">
                   <img
                     src="/daria-headshot.jpg"
-                    alt="Daria Zhao"
+                    alt="Daria"
                     className="w-full h-full object-cover"
                   />
                 </div>
                 <div className="text-xs text-muted-foreground/70 italic">
-                  — Daria Zhao
+                  — Daria
                 </div>
               </div>
             </div>

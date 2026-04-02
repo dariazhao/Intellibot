@@ -286,7 +286,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
               <img src="/llama.png" alt="Llama" width={56} height={56} className="opacity-60" />
             </div>
             <div className="text-[11px] text-muted-foreground/60 leading-relaxed">
-              Made with ♥️ by Daria Zhao.
+              Made with ♥️ by Daria.
               <br />
               Sign up for future events{' '}
               <a
