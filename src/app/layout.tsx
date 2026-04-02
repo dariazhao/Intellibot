@@ -18,17 +18,17 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Intellibot — Competitive Intelligence Hub",
+  title: "Intellibot | Self-Serve Deal Hub",
   description: "Self-serve competitive intelligence for enterprise sales teams",
   openGraph: {
-    title: "Intellibot — Competitive Intelligence Hub",
+    title: "Intellibot | Self-Serve Deal Hub",
     description: "Self-serve competitive intelligence for enterprise sales teams",
     siteName: "Intellibot",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Intellibot — Competitive Intelligence Hub",
+    title: "Intellibot | Self-Serve Deal Hub",
     description: "Self-serve competitive intelligence for enterprise sales teams",
   },
 };
