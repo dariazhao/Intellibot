@@ -493,13 +493,13 @@ function FloatingQuickLinks() {
   return (
     <>
       {/* Floating pill - bottom right */}
-      <div className="hidden md:flex fixed bottom-5 right-5 z-30 items-center gap-1 rounded-full bg-sidebar shadow-xl px-1.5 py-1.5">
+      <div className="hidden md:flex fixed bottom-5 right-5 z-30 items-center gap-1 rounded-full bg-sidebar shadow-2xl shadow-sidebar/40 px-1.5 py-1.5 transition-transform duration-300 hover:scale-105 hover:shadow-sidebar/60">
         <button
           onClick={() => setTcoOpen(true)}
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-medium text-[#5ee8d0] hover:bg-white/10 transition-colors"
+          className="flex items-center gap-1.5 px-3.5 py-2 rounded-full text-[12px] font-bold text-white hover:bg-white/15 transition-colors"
           title="Quick TCO Analysis"
         >
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#17b8be" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
             <rect x="4" y="2" width="16" height="20" rx="2" />
             <line x1="8" y1="6" x2="16" y2="6" />
             <line x1="8" y1="10" x2="12" y2="10" />
@@ -507,13 +507,13 @@ function FloatingQuickLinks() {
           </svg>
           TCO
         </button>
-        <div className="w-px h-4 bg-sidebar-border" />
+        <div className="w-px h-4 bg-white/20" />
         <button
           onClick={() => setBcOpen(true)}
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-medium text-[#c4b5fd] hover:bg-white/10 transition-colors"
+          className="flex items-center gap-1.5 px-3.5 py-2 rounded-full text-[12px] font-bold text-white hover:bg-white/15 transition-colors"
           title="Quick Battlecard"
         >
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#e5a00d" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
             <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
           </svg>
           Battlecard
