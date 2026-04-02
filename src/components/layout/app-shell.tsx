@@ -493,10 +493,10 @@ function FloatingQuickLinks() {
   return (
     <>
       {/* Floating pill - bottom right */}
-      <div className="hidden md:flex fixed bottom-5 right-5 z-30 items-center gap-1.5 rounded-full bg-card backdrop-blur border-2 border-border shadow-xl px-1.5 py-1.5">
+      <div className="hidden md:flex fixed bottom-5 right-5 z-30 items-center gap-1 rounded-full bg-sidebar shadow-xl px-1.5 py-1.5">
         <button
           onClick={() => setTcoOpen(true)}
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-medium text-dd-teal hover:bg-dd-teal/10 transition-colors"
+          className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-medium text-[#5ee8d0] hover:bg-white/10 transition-colors"
           title="Quick TCO Analysis"
         >
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -507,10 +507,10 @@ function FloatingQuickLinks() {
           </svg>
           TCO
         </button>
-        <div className="w-px h-4 bg-border" />
+        <div className="w-px h-4 bg-sidebar-border" />
         <button
           onClick={() => setBcOpen(true)}
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-medium text-primary hover:bg-primary/10 transition-colors"
+          className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-medium text-[#c4b5fd] hover:bg-white/10 transition-colors"
           title="Quick Battlecard"
         >
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
