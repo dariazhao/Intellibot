@@ -35,18 +35,16 @@ export function BattlecardPhilosophyContent() {
 
       {/* My Take */}
       <S>
-        <div className="rounded-xl border-2 border-primary/20 bg-primary/5 px-5 py-5">
+        <div className="rounded-xl border-2 border-primary/20 bg-primary/5 px-6 py-5">
           <div className="text-xs font-bold uppercase tracking-wider text-primary mb-3">My take</div>
-          <p className="text-sm leading-relaxed mb-4">
-            In AI-GTM, competitors ship weekly and the market shifts monthly. A battlecard made on Monday is outdated by Friday.
-            Instant battlecards generate fresh, deal-specific competitive intel from live data sources on demand.
-            This eliminates the maintenance burden, scales the PMM function, and ensures every rep gets the same quality of competitive support regardless of deal size.
+          <p className="text-[15px] leading-relaxed mb-4">
+            In AI-GTM, competitors ship weekly and the market shifts monthly. A battlecard made on Monday is outdated by Friday. Instant battlecards generate fresh, deal-specific competitive intel from live data sources on demand. This eliminates the maintenance burden, scales the PMM function, and ensures every rep gets the same quality of competitive support regardless of deal size.
           </p>
-          <div className="flex items-center gap-2.5 pt-2 border-t border-primary/10">
-            <div className="w-8 h-8 rounded-full overflow-hidden border border-primary/30 shrink-0">
+          <div className="flex items-center justify-end gap-2.5">
+            <div className="w-9 h-9 rounded-full overflow-hidden border border-primary/30 shrink-0">
               <img src="/daria-headshot.jpg" alt="Daria" className="w-full h-full object-cover" />
             </div>
-            <span className="text-xs text-muted-foreground italic">- Daria</span>
+            <span className="text-sm text-muted-foreground italic">- Daria</span>
           </div>
         </div>
       </S>
