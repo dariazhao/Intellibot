@@ -295,7 +295,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           {children}
           <footer className="border-t border-border py-6 px-4 text-center">
             <p className="text-[11px] text-muted-foreground/60 leading-relaxed max-w-md mx-auto mb-3">
-              This is an external demo for a PMM workshop I ran in March 2026. Everything you see is dummy data, and no selections will be saved. So please, play around!
+              This is an external demo only. Everything you see is dummy data, and no selections will be saved. So please, play around!
             </p>
             <div className="flex justify-center gap-2.5 mb-3">
               <a

@@ -324,7 +324,7 @@ const TOUR_CARDS: TourCard[] = [
   {
     id: 'welcome',
     headline: 'Welcome to Intellibot!',
-    body: "This is an external demo for a PMM workshop I ran in March 2026. Everything you see is dummy data, and no selections will be saved. So please, play around!",
+    body: "This is an external demo only. Everything you see is dummy data, and no selections will be saved. So please, play around!",
     illustration: null,
     isWelcome: true,
   },
@@ -470,32 +470,6 @@ export function WelcomeTour({ forceOpen = false, onClose }: WelcomeTourProps) {
                 {card.body}
               </p>
 
-              {/* Two pillars */}
-              <div className="flex gap-3 mb-5 w-full max-w-sm">
-                <div className="flex-1 rounded-lg px-3 py-2.5 border text-center" style={{ borderColor: '#632CA620', backgroundColor: '#632CA608' }}>
-                  <div className="text-[10px] font-bold uppercase tracking-wider mb-0.5" style={{ color: '#632CA6' }}>Win the Deal</div>
-                  <div className="text-[10px] text-muted-foreground">Battlecards, TCO, Head-to-Head</div>
-                </div>
-                <div className="flex-1 rounded-lg px-3 py-2.5 border text-center" style={{ borderColor: '#1a8dff20', backgroundColor: '#1a8dff08' }}>
-                  <div className="text-[10px] font-bold uppercase tracking-wider mb-0.5" style={{ color: '#1a8dff' }}>Know the Market</div>
-                  <div className="text-[10px] text-muted-foreground">Competitor Intel, Event Stream</div>
-                </div>
-              </div>
-
-              {/* Signed with headshot */}
-              <div className="flex items-center gap-2.5">
-                <div className="w-9 h-9 rounded-full overflow-hidden border-2 border-primary/30 shadow-sm shrink-0">
-                  <img
-                    src="/daria-headshot.jpg"
-                    alt="Daria Zhao"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <div className="text-left">
-                  <div className="text-xs font-medium">Daria Zhao</div>
-                  <div className="text-[10px] text-muted-foreground/70">Director of AI PMM at Yext</div>
-                </div>
-              </div>
             </div>
           ) : (
             <>

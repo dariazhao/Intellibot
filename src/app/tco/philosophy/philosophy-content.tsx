@@ -43,15 +43,10 @@ export function PhilosophyContent() {
       <S>
         <div className="rounded-xl border-2 border-primary/20 bg-primary/5 px-6 py-5">
           <div className="text-xs font-bold uppercase tracking-wider text-primary mb-3">My take</div>
-          <p className="text-[15px] leading-relaxed mb-4">
+          <p className="text-[15px] leading-relaxed mb-1">
             TCO analysis shifts competitive deals from "who has the lowest sticker price" to "who costs less to actually own." Our model uses bottom-up cost modeling across 11 categories and 4 lifecycle phases. Every number is editable, every assumption is named, and the methodology creates the advantage, not cherry-picked inputs.
           </p>
-          <div className="flex items-center justify-end gap-2.5">
-            <div className="w-9 h-9 rounded-full overflow-hidden border border-primary/30 shrink-0">
-              <img src="/daria-headshot.jpg" alt="Daria" className="w-full h-full object-cover" />
-            </div>
-            <span className="text-sm text-muted-foreground italic">- Daria</span>
-          </div>
+          <p className="text-sm text-muted-foreground italic text-right">— Daria Zhao, Director of AI PMM at Yext</p>
         </div>
       </S>
 
