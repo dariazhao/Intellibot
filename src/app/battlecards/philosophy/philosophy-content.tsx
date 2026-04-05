@@ -40,7 +40,7 @@ export function BattlecardPhilosophyContent() {
           <p className="text-[15px] leading-relaxed mb-1">
             In AI-native GTM, we ship daily, competitors move at the same pace, the market evolves rapidly, and customers demand the best. A battlecard made on Monday is outdated by Friday. Instant battlecards generate fresh, deal-specific competitive intel from live data sources on demand. This eliminates the maintenance burden, scales the PMM function, and ensures every rep gets the same quality of competitive support regardless of deal size.
           </p>
-          <p className="text-sm text-muted-foreground italic text-right">— Daria Zhao, Director of AI PMM at Yext</p>
+          <p className="text-sm text-muted-foreground italic text-right">- Daria</p>
         </div>
       </S>
 

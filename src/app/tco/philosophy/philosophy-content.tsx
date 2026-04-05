@@ -46,7 +46,7 @@ export function PhilosophyContent() {
           <p className="text-[15px] leading-relaxed mb-1">
             TCO analysis shifts competitive deals from "who has the lowest sticker price" to "who costs less to actually own." Our model uses bottom-up cost modeling across 11 categories and 4 lifecycle phases. Every number is editable, every assumption is named, and the methodology creates the advantage, not cherry-picked inputs.
           </p>
-          <p className="text-sm text-muted-foreground italic text-right">— Daria Zhao, Director of AI PMM at Yext</p>
+          <p className="text-sm text-muted-foreground italic text-right">- Daria</p>
         </div>
       </S>
 
