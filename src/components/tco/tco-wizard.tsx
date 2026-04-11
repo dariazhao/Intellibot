@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { InfoTip, TCO_TIPS } from './info-tip';
 import { TcoResults } from './tco-results';
 import { TcoNarrative } from './tco-narrative';
+import { TcoQuickStart, type QuickStartParams } from './tco-quick-start';
 import type { TcoCostProfile } from '@/lib/schemas';
 import type { Account, Competitor } from '@/lib/schemas';
 
@@ -252,6 +253,7 @@ interface TcoWizardProps {
 }
 
 export function TcoWizard({ accounts, competitors, costProfiles, initialPricingModel }: TcoWizardProps) {
+  const [mode, setMode] = useState<'quick' | 'manual'>('quick');
   const [step, setStep] = useState(0);
   const [deal, setDeal] = useState<DealParams>({
     ...DEFAULT_DEAL,
@@ -296,6 +298,19 @@ export function TcoWizard({ accounts, competitors, costProfiles, initialPricingM
     );
   }, []);
 
+  const handleQuickParsed = useCallback((params: QuickStartParams) => {
+    setDeal(prev => ({
+      ...prev,
+      accountId: params.accountId,
+      seats: params.seats,
+      contractTermYears: params.contractTermYears,
+      pricingModel: params.pricingModel,
+    }));
+    setSelectedCompetitorIds(params.competitorIds);
+    setMode('manual');
+    setStep(3);
+  }, []);
+
   const results = useMemo<VendorTcoResult[]>(() => {
     const vendors = [usProfile, ...selectedProfiles];
     return vendors.map(profile =>
@@ -311,6 +326,36 @@ export function TcoWizard({ accounts, competitors, costProfiles, initialPricingM
 
   return (
     <div className="space-y-6">
+      {/* Mode toggle */}
+      <div className="flex items-center gap-1 p-1 rounded-lg border border-border bg-secondary/30 w-fit">
+        <button
+          onClick={() => { setMode('quick'); setStep(0); }}
+          className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-md text-sm font-medium transition-all ${
+            mode === 'quick'
+              ? 'bg-card border border-border shadow-sm text-foreground'
+              : 'text-muted-foreground hover:text-foreground'
+          }`}
+        >
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/>
+          </svg>
+          Quick Start
+        </button>
+        <button
+          onClick={() => setMode('manual')}
+          className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-md text-sm font-medium transition-all ${
+            mode === 'manual'
+              ? 'bg-card border border-border shadow-sm text-foreground'
+              : 'text-muted-foreground hover:text-foreground'
+          }`}
+        >
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+          </svg>
+          Manual Setup
+        </button>
+      </div>
+
       {/* Stepper */}
       <div className="flex items-center gap-1">
         {STEPS.map((s, i) => (
@@ -344,13 +389,19 @@ export function TcoWizard({ accounts, competitors, costProfiles, initialPricingM
       {/* Step content */}
       <AnimatePresence mode="wait">
         <motion.div
-          key={step}
+          key={mode === 'quick' && step === 0 ? 'quick' : step}
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -20 }}
           transition={{ duration: 0.2 }}
         >
-          {step === 0 && (
+          {step === 0 && mode === 'quick' && (
+            <TcoQuickStart
+              onParsed={handleQuickParsed}
+              onManual={() => setMode('manual')}
+            />
+          )}
+          {step === 0 && mode === 'manual' && (
             <StepDealSetup
               deal={deal} updateDeal={updateDeal} accounts={accounts}
               competitors={competitors} selectedCompetitorIds={selectedCompetitorIds}

@@ -471,6 +471,7 @@ function TimeRangeSelector() {
 function FloatingQuickLinks() {
   const [tcoOpen, setTcoOpen] = useState(false);
   const [bcOpen, setBcOpen] = useState(false);
+  const [coachOpen, setCoachOpen] = useState(false);
   const [accounts, setAccounts] = useState<Array<{ slug: string; name: string; logo: string }>>([]);
   const router = useRouter();
 
@@ -482,14 +483,14 @@ function FloatingQuickLinks() {
   ];
 
   useEffect(() => {
-    if (bcOpen && accounts.length === 0) {
+    if ((bcOpen || coachOpen) && accounts.length === 0) {
       import('@/lib/dal').then(({ getAccounts }) =>
         getAccounts().then((data) =>
           setAccounts(data.map((a) => ({ slug: a.slug, name: a.name, logo: a.logo })))
         )
       );
     }
-  }, [bcOpen, accounts.length]);
+  }, [bcOpen, coachOpen, accounts.length]);
 
   return (
     <>
@@ -523,6 +524,17 @@ function FloatingQuickLinks() {
           </svg>
           Battlecard
         </button>
+        <div className="w-px h-4 bg-white/20" />
+        <button
+          onClick={() => setCoachOpen(true)}
+          className="flex items-center gap-1.5 px-3.5 py-2 rounded-full text-[12px] font-bold text-white hover:bg-white/15 transition-colors"
+          title="Deal Coach"
+        >
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/>
+          </svg>
+          Coach
+        </button>
       </motion.div>
 
       {/* TCO modal */}
@@ -530,10 +542,28 @@ function FloatingQuickLinks() {
         <div className="fixed inset-0 z-50 flex items-start justify-center pt-[20vh]" onClick={() => setTcoOpen(false)}>
           <div className="absolute inset-0 bg-black/60" />
           <div className="relative w-full max-w-sm mx-4 bg-popover border border-border rounded-lg shadow-2xl overflow-hidden" onClick={(e) => e.stopPropagation()}>
-            <div className="px-3 py-2 border-b border-border text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">Select pricing model</div>
+            <div className="px-3 py-2 border-b border-border text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">Start a TCO Analysis</div>
             <div className="py-1">
+              {/* Quick Start option */}
+              <button
+                onClick={() => { setTcoOpen(false); router.push('/tco'); }}
+                className="w-full flex items-center gap-3 px-3 py-2.5 hover:bg-accent transition-colors text-left border-b border-border"
+              >
+                <span className="w-7 h-7 rounded-md flex items-center justify-center bg-violet-500/10 text-violet-400 shrink-0">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/>
+                  </svg>
+                </span>
+                <div className="flex-1 min-w-0">
+                  <div className="text-[13px] font-semibold">Describe my deal</div>
+                  <div className="text-[11px] text-muted-foreground">Let AI configure the analysis for you</div>
+                </div>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-muted-foreground shrink-0"><polyline points="9 18 15 12 9 6" /></svg>
+              </button>
+              {/* Pricing model options */}
+              <div className="px-3 pt-2 pb-0.5 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground/70">Or pick a pricing model</div>
               {models.map((m) => (
-                <button key={m.value} onClick={() => { setTcoOpen(false); router.push(`/tco?model=${m.value}`); }} className="w-full flex items-center gap-3 px-3 py-2.5 hover:bg-accent transition-colors text-left">
+                <button key={m.value} onClick={() => { setTcoOpen(false); router.push(`/tco?model=${m.value}`); }} className="w-full flex items-center gap-3 px-3 py-2 hover:bg-accent transition-colors text-left">
                   <span className="text-base">{m.icon}</span>
                   <div className="flex-1 min-w-0">
                     <div className="text-[13px] font-medium">{m.label}</div>
@@ -559,6 +589,42 @@ function FloatingQuickLinks() {
                   <span>{a.logo}</span>
                   <span className="font-medium">{a.name}</span>
                   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="ml-auto text-muted-foreground"><polyline points="9 18 15 12 9 6" /></svg>
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Deal Coach modal */}
+      {coachOpen && (
+        <div className="fixed inset-0 z-50 flex items-start justify-center pt-[20vh]" onClick={() => setCoachOpen(false)}>
+          <div className="absolute inset-0 bg-black/60" />
+          <div className="relative w-full max-w-sm mx-4 bg-popover border border-border rounded-lg shadow-2xl overflow-hidden" onClick={(e) => e.stopPropagation()}>
+            <div className="px-3 py-2.5 border-b border-border flex items-center gap-2">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" className="text-violet-400 shrink-0">
+                <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/>
+              </svg>
+              <span className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">Deal Coach — Select account</span>
+            </div>
+            <div className="px-3 py-2 text-[11px] text-muted-foreground border-b border-border bg-secondary/30">
+              Opens the AI deal coach for the selected account
+            </div>
+            <div className="max-h-64 overflow-y-auto">
+              {accounts.map((a) => (
+                <button
+                  key={a.slug}
+                  onClick={() => { setCoachOpen(false); router.push(`/account/${a.slug}/battlecard?coach=1`); }}
+                  className="w-full flex items-center gap-2.5 px-3 py-2.5 text-[13px] hover:bg-accent transition-colors text-left"
+                >
+                  <span>{a.logo}</span>
+                  <span className="font-medium">{a.name}</span>
+                  <div className="ml-auto flex items-center gap-1.5 text-violet-400">
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                    </svg>
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-muted-foreground"><polyline points="9 18 15 12 9 6" /></svg>
+                  </div>
                 </button>
               ))}
             </div>

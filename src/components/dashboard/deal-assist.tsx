@@ -78,8 +78,49 @@ export function DealAssist({ competitors, accountCount }: DealAssistProps) {
         <span>Quick Actions</span>
       </div>
       <div className="p-2.5 space-y-1">
+
+        {/* AI Agent Features — featured section */}
+        <div className="px-3 pt-1.5 pb-1 flex items-center gap-1.5">
+          <svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor" className="text-violet-400 shrink-0">
+            <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/>
+          </svg>
+          <span className="text-[9px] font-bold uppercase tracking-wider text-violet-400">AI Features</span>
+        </div>
+        <motion.div
+          initial={{ opacity: 0, y: -4 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.25 }}
+          className="grid grid-cols-2 gap-1.5 px-2.5 pb-1"
+        >
+          <AgentFeatureCard
+            href="/tco"
+            label="TCO Quick Start"
+            desc="Describe your deal in plain English"
+            color="#17b8be"
+            icon={
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/>
+              </svg>
+            }
+          />
+          <AgentFeatureCard
+            href="/battlecards"
+            label="Deal Coach"
+            desc="AI advisor for every account"
+            color="#632CA6"
+            icon={
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+              </svg>
+            }
+          />
+        </motion.div>
+
+        {/* Divider */}
+        <div className="px-3 py-0.5"><div className="h-px bg-border" /></div>
+
         {/* Win the Deal group */}
-        <div className="px-3 pt-1.5 pb-0.5">
+        <div className="px-3 pt-1 pb-0.5">
           <span className="text-[9px] font-bold uppercase tracking-wider" style={{ color: '#632CA6' }}>Win the Deal</span>
         </div>
         {winActions.map((action, i) => (
@@ -98,6 +139,28 @@ export function DealAssist({ competitors, accountCount }: DealAssistProps) {
         ))}
       </div>
     </div>
+  );
+}
+
+function AgentFeatureCard({
+  href, label, desc, color, icon,
+}: {
+  href: string; label: string; desc: string; color: string; icon: React.ReactNode;
+}) {
+  return (
+    <Link
+      href={href}
+      className="block p-2.5 rounded-lg border border-border hover:border-primary/40 bg-secondary/30 hover:bg-primary/5 transition-all group"
+    >
+      <div
+        className="w-7 h-7 rounded-md flex items-center justify-center mb-2"
+        style={{ backgroundColor: `${color}18`, color }}
+      >
+        {icon}
+      </div>
+      <div className="text-[12px] font-semibold group-hover:text-primary transition-colors leading-tight">{label}</div>
+      <div className="text-[10px] text-muted-foreground mt-0.5 leading-tight">{desc}</div>
+    </Link>
   );
 }
 

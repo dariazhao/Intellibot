@@ -20,17 +20,14 @@ export default async function BattlecardsPage() {
       {/* Account cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {accounts.map((account) => (
-          <Link
+          <div
             key={account.slug}
-            href={`/account/${account.slug}/battlecard`}
-            className="rounded-xl border border-border bg-card p-5 hover:border-primary/40 transition-all group"
+            className="rounded-xl border border-border bg-card p-5 hover:border-border/80 transition-all"
           >
-            <div className="flex items-center gap-3 mb-3">
+            <div className="flex items-center gap-3 mb-4">
               <span className="text-2xl">{account.logo}</span>
               <div>
-                <div className="font-semibold group-hover:text-primary transition-colors">
-                  {account.name}
-                </div>
+                <div className="font-semibold">{account.name}</div>
                 <div className="text-xs text-muted-foreground">{account.industry}</div>
               </div>
               <span
@@ -45,18 +42,32 @@ export default async function BattlecardsPage() {
                 {account.stage.toUpperCase()}
               </span>
             </div>
-            <div className="flex items-center justify-between text-sm">
+            <div className="flex items-center justify-between mb-4 text-sm">
               <span className="text-muted-foreground">
                 Health: <span className="font-medium text-foreground">{account.healthScore}%</span>
               </span>
-              <span className="flex items-center gap-1.5 text-primary text-xs font-medium">
-                Generate Battlecard
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            </div>
+            <div className="flex items-center gap-2">
+              <Link
+                href={`/account/${account.slug}/battlecard?coach=1`}
+                className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg border border-border bg-secondary/40 text-xs font-medium text-muted-foreground hover:text-foreground hover:border-violet-400/40 hover:bg-violet-500/5 transition-colors"
+              >
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/>
+                </svg>
+                Deal Coach
+              </Link>
+              <Link
+                href={`/account/${account.slug}/battlecard`}
+                className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-primary/10 border border-primary/20 text-xs font-semibold text-primary hover:bg-primary/15 transition-colors"
+              >
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
                 </svg>
-              </span>
+                Battlecard
+              </Link>
             </div>
-          </Link>
+          </div>
         ))}
       </div>
 

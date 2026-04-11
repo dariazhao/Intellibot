@@ -2,8 +2,14 @@ import { notFound } from 'next/navigation';
 import { getAccountBySlug, getCompetitorsForAccount } from '@/lib/dal';
 import { BattlecardGenerator } from './battlecard-generator';
 
-export default async function BattlecardPage({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params;
+export default async function BattlecardPage({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ slug: string }>;
+  searchParams: Promise<{ coach?: string }>;
+}) {
+  const [{ slug }, { coach }] = await Promise.all([params, searchParams]);
   const account = await getAccountBySlug(slug);
   if (!account) notFound();
 
@@ -18,7 +24,7 @@ export default async function BattlecardPage({ params }: { params: Promise<{ slu
         </p>
       </div>
 
-      <BattlecardGenerator account={account} competitors={competitors} />
+      <BattlecardGenerator account={account} competitors={competitors} initialCoachOpen={coach === '1'} />
     </div>
   );
 }
