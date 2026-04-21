@@ -384,14 +384,14 @@ export function WelcomeTour({ forceOpen = false, onClose }: WelcomeTourProps) {
       setIsOpen(true);
       return;
     }
-    const completed = localStorage.getItem(TOUR_STORAGE_KEY);
+    const completed = sessionStorage.getItem(TOUR_STORAGE_KEY);
     if (!completed) {
       setIsOpen(true);
     }
   }, [forceOpen]);
 
   const closeTour = useCallback(() => {
-    localStorage.setItem(TOUR_STORAGE_KEY, 'true');
+    sessionStorage.setItem(TOUR_STORAGE_KEY, 'true');
     setIsOpen(false);
     setCurrentCard(0);
     onClose?.();
