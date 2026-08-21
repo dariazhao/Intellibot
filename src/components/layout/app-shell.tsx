@@ -297,7 +297,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             <p className="text-[11px] text-muted-foreground/60 leading-relaxed max-w-md mx-auto mb-3">
               This is an external demo only. Everything you see is dummy data, and no selections will be saved. So please, play around!
             </p>
-            <div className="flex justify-center gap-2.5 mb-3">
+            <div className="flex justify-center mb-3">
               <a
                 href="https://luma.com/calendar/cal-y7Q8MCsPwKeiJ8r"
                 target="_blank"
